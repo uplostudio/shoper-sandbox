@@ -20,7 +20,7 @@ Webflow.push(function () {
       let yearlyStandardPrice = data.package.price.total;
       let yearlyPromoPrice = data.package.price_promo.total;
 
-      document.title = `Sklep internetowy - Załóż sklep online z Shoper od ${monthlyPromotion} zł / miesiąc`;
+      document.title = `(Staging) Sklep internetowy - Załóż sklep online z Shoper od ${monthlyPromotion} zł / miesiąc`;
 
       $(promoPriceSelector).text(` ${monthlyPromotion} `);
 
