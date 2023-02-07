@@ -126,8 +126,33 @@ function checkNipBlur() {
   }
 }
 
+function checkEmailBlurTrialStepOne(n) {
+  emailValue = n.value;
+  let errorBoxEmail = n.nextElementSibling;
+
+  if (emailValue === "") {
+    n.style.border = errorBorderColor;
+    errorBoxEmail.style.display = "flex";
+    errorBoxEmail.children[1].textContent = "To pole jest wymagane";
+    result = false;
+    return false;
+  } else if (!useRegexEmail(emailValue)) {
+    n.style.border = errorBorderColor;
+    errorBoxEmail.style.display = "flex";
+    errorBoxEmail.children[1].textContent = "Podaj poprawne dane";
+    result = false;
+    return false;
+  } else if (useRegexEmail(emailValue)) {
+    n.style.border = initialBorderColor;
+    errorBoxEmail.style.display = "none";
+    result = true;
+    return true;
+  }
+}
+
 function checkEmailBlur() {
   emailValue = emailInput.value;
+  console.log(emailValue);
   let errorBoxEmail = emailInput.nextElementSibling;
   if (emailValue === "") {
     emailInput.style.border = errorBorderColor;
@@ -141,26 +166,6 @@ function checkEmailBlur() {
     return false;
   } else if (useRegexEmail(emailValue)) {
     emailInput.style.border = initialBorderColor;
-    errorBoxEmail.style.display = "none";
-    return true;
-  }
-}
-
-function checkEmailBlurTrialStepOne() {
-  emailValue = n.value;
-  let errorBoxEmail = n.nextElementSibling;
-  if (emailValue === "") {
-    n.style.border = errorBorderColor;
-    errorBoxEmail.style.display = "flex";
-    errorBoxEmail.children[1].textContent = "To pole jest wymagane";
-    return false;
-  } else if (!useRegexEmail(emailValue)) {
-    n.style.border = errorBorderColor;
-    errorBoxEmail.style.display = "flex";
-    errorBoxEmail.children[1].textContent = "Podaj poprawne dane";
-    return false;
-  } else if (useRegexEmail(emailValue)) {
-    n.style.border = initialBorderColor;
     errorBoxEmail.style.display = "none";
     return true;
   }
