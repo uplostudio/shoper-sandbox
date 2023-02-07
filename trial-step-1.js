@@ -14,7 +14,7 @@ var intervalId = window.setTimeout(function () {
 let trialStepOneEmailInputs = document.querySelectorAll(
   "[app='create_trial_step1'] [app='email']"
 );
-let emailInput = document.querySelector("[app='email']");
+emailInput = document.querySelector("[app='email']");
 let trialOpenButton = document.querySelectorAll(
   "[app='open_trial_modal_button']"
 );
