@@ -9,6 +9,8 @@ let phoneInputValue,
 let errorBorderColor = `1px solid #eb4826`;
 let initialBorderColor = `1px solid #898989`;
 
+/* Regexes start here */
+
 function useRegexFirstName(firstNameValue) {
   let regex =
     /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/;
@@ -42,46 +44,50 @@ function useRegexUrl(urlValue) {
   return regex.test(urlValue);
 }
 
-function checkFirstName(e) {
-  let form = e.target.form;
-  let firstNameInput = form.querySelector("[app='firstName']");
+/* Regexes end here */
+
+/* Functions start here */
+
+function checkFirstNameBlur() {
   firstNameValue = firstNameInput.value;
   let errorBoxFirstName = firstNameInput.nextElementSibling;
   if (firstNameValue === "") {
     firstNameInput.style.border = errorBorderColor;
     errorBoxFirstName.style.display = "flex";
     errorBoxFirstName.children[1].textContent = "To pole jest wymagane";
+    return false;
   } else if (!useRegexFirstName(firstNameValue)) {
     firstNameInput.style.border = errorBorderColor;
     errorBoxFirstName.style.display = "flex";
     errorBoxFirstName.children[1].textContent = "Podaj poprawne dane";
+    return false;
   } else if (useRegexFirstName(firstNameValue)) {
     firstNameInput.style.border = initialBorderColor;
     errorBoxFirstName.style.display = "none";
+    return true;
   }
 }
-function checkLastName(e) {
-  let form = e.target.form;
-  let lastNameInput = form.querySelector("[app='lastName']");
+function checkLastNameBlur() {
   lastNameValue = lastNameInput.value;
   let errorBoxLastName = lastNameInput.nextElementSibling;
   if (lastNameValue === "") {
     lastNameInput.style.border = errorBorderColor;
     errorBoxLastName.style.display = "flex";
     errorBoxLastName.children[1].textContent = "To pole jest wymagane";
+    return false;
   } else if (!useRegexLastName(lastNameValue)) {
     lastNameInput.style.border = errorBorderColor;
     errorBoxLastName.style.display = "flex";
     errorBoxLastName.children[1].textContent = "Podaj poprawne dane";
+    return false;
   } else if (useRegexLastName(lastNameValue)) {
     lastNameInput.style.border = initialBorderColor;
     errorBoxLastName.style.display = "none";
+    return true;
   }
 }
 
-function checkCompanyName(e) {
-  let form = e.target.form;
-  let companyNameInput = form.querySelector("[app='company_name']");
+function checkCompanyNameBlur() {
   companyValue = companyNameInput.value;
   let errorBoxCompany = companyNameInput.nextElementSibling;
   if (companyValue === "") {
@@ -94,77 +100,84 @@ function checkCompanyName(e) {
   }
 }
 
-function checkNip(e) {
-  let form = e.target.form;
-  let nipInput = form.querySelector("[app='nipNumber']");
+function checkNipBlur() {
   nipValue = nipInput.value;
   let errorBoxNip = nipInput.nextElementSibling;
   if (nipValue === "") {
     nipInput.style.border = errorBorderColor;
     errorBoxNip.style.display = "flex";
     errorBoxNip.children[1].textContent = "To pole jest wymagane";
+    return false;
   } else if (!useRegexNip(nipValue)) {
     nipInput.style.border = errorBorderColor;
     errorBoxNip.style.display = "flex";
     errorBoxNip.children[1].textContent = "Podaj poprawne dane";
+    return false;
   } else if (useRegexNip(nipValue)) {
     nipInput.style.border = initialBorderColor;
     errorBoxNip.style.display = "none";
+    return true;
   }
 }
-function checkEmail(e) {
-  let form = e.target.form;
-  let emailInput = form.querySelector("[app='email']");
+
+function checkEmailBlur() {
   emailValue = emailInput.value;
   let errorBoxEmail = emailInput.nextElementSibling;
   if (emailValue === "") {
     emailInput.style.border = errorBorderColor;
     errorBoxEmail.style.display = "flex";
     errorBoxEmail.children[1].textContent = "To pole jest wymagane";
+    return false;
   } else if (!useRegexEmail(emailValue)) {
     emailInput.style.border = errorBorderColor;
     errorBoxEmail.style.display = "flex";
     errorBoxEmail.children[1].textContent = "Podaj poprawne dane";
+    return false;
   } else if (useRegexEmail(emailValue)) {
     emailInput.style.border = initialBorderColor;
     errorBoxEmail.style.display = "none";
+    return true;
   }
 }
 
-function checkPhone(e) {
-  let form = e.target.form;
-  let phoneInput = form.querySelector("[app='phone']");
+function checkPhoneBlur() {
   phoneInputValue = phoneInput.value;
   let errorBoxPhone = phoneInput.nextElementSibling;
   if (phoneInputValue === "") {
     phoneInput.style.border = errorBorderColor;
     errorBoxPhone.style.display = "flex";
     errorBoxPhone.children[1].textContent = "To pole jest wymagane";
+    return false;
   } else if (!useRegexPhone(phoneInputValue)) {
     phoneInput.style.border = errorBorderColor;
     errorBoxPhone.style.display = "flex";
     errorBoxPhone.children[1].textContent = "Podaj poprawne dane";
+    return true;
   } else if (useRegexPhone(phoneInputValue)) {
     phoneInput.style.border = initialBorderColor;
     errorBoxPhone.style.display = "none";
+    return true;
   }
 }
 
-function checkUrl(e) {
-  let form = e.target.form;
-  let urlInput = form.querySelector("[app='url']");
+function checkUrlBlur() {
   urlValue = urlInput.value;
   let errorBoxUrl = urlInput.nextElementSibling;
   if (urlValue === "") {
     urlInput.style.border = errorBorderColor;
     errorBoxUrl.style.display = "flex";
     errorBoxUrl.children[1].textContent = "To pole jest wymagane";
+    return false;
   } else if (!useRegexUrl(urlValue)) {
     urlInput.style.border = errorBorderColor;
     errorBoxUrl.style.display = "flex";
     errorBoxUrl.children[1].textContent = "Podaj poprawne dane";
+    return false;
   } else if (useRegexUrl(urlValue)) {
     urlInput.style.border = initialBorderColor;
     errorBoxUrl.style.display = "none";
+    return true;
   }
 }
+
+/* Functions end here */
