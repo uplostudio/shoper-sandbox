@@ -1,12 +1,12 @@
 //  grab form
-let formWrapper = document.querySelector("[app='booste_form']");
+formWrapper = document.querySelector("[app='booste_form']");
 // grab form trigger
-let formTrigger = formWrapper.querySelector("[app='booste_submit']");
+formTrigger = formWrapper.querySelector("[app='booste_submit']");
 // grab all input fields from form without checkboxes
-let firstNameInput = formWrapper.querySelector("[app='firstName']");
-let lastNameInput = formWrapper.querySelector("[app='lastName']");
-let emailInput = formWrapper.querySelector("[app='email']");
-let urlInput = formWrapper.querySelector("[app='url']");
+firstNameInput = formWrapper.querySelector("[app='firstName']");
+lastNameInput = formWrapper.querySelector("[app='lastName']");
+emailInput = formWrapper.querySelector("[app='email']");
+urlInput = formWrapper.querySelector("[app='url']");
 
 // Attach EventListeners to inputs
 

@@ -4,7 +4,13 @@ let phoneInputValue,
   urlValue,
   firstNameValue,
   lastNameValue,
-  companyValue;
+  companyValue,
+  formWrapper,
+  emailInput,
+  firstNameInput,
+  lastNameInput,
+  urlInput,
+  phoneInput;
 
 let errorBorderColor = `1px solid #eb4826`;
 let initialBorderColor = `1px solid #898989`;
@@ -135,6 +141,26 @@ function checkEmailBlur() {
     return false;
   } else if (useRegexEmail(emailValue)) {
     emailInput.style.border = initialBorderColor;
+    errorBoxEmail.style.display = "none";
+    return true;
+  }
+}
+
+function checkEmailBlurTrialStepOne() {
+  emailValue = n.value;
+  let errorBoxEmail = n.nextElementSibling;
+  if (emailValue === "") {
+    n.style.border = errorBorderColor;
+    errorBoxEmail.style.display = "flex";
+    errorBoxEmail.children[1].textContent = "To pole jest wymagane";
+    return false;
+  } else if (!useRegexEmail(emailValue)) {
+    n.style.border = errorBorderColor;
+    errorBoxEmail.style.display = "flex";
+    errorBoxEmail.children[1].textContent = "Podaj poprawne dane";
+    return false;
+  } else if (useRegexEmail(emailValue)) {
+    n.style.border = initialBorderColor;
     errorBoxEmail.style.display = "none";
     return true;
   }

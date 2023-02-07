@@ -1,12 +1,12 @@
 //  grab form
-let formWrapper = document.querySelector("[app='brutto_form']");
+formWrapper = document.querySelector("[app='brutto_form']");
 // grab form trigger
-let formTrigger = formWrapper.querySelector("[app='brutto_submit']");
+formTrigger = formWrapper.querySelector("[app='brutto_submit']");
 // grab all input fields from form without checkboxes
-let nipInput = formWrapper.querySelector("[app='nipNumber']");
-let phoneInput = formWrapper.querySelector("[app='phone']");
-let emailInput = formWrapper.querySelector("[app='email']");
-let urlInput = formWrapper.querySelector("[app='url']");
+nipInput = formWrapper.querySelector("[app='nipNumber']");
+phoneInput = formWrapper.querySelector("[app='phone']");
+emailInput = formWrapper.querySelector("[app='email']");
+urlInput = formWrapper.querySelector("[app='url']");
 
 // Attach EventListeners to inputs
 
