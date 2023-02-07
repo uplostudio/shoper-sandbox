@@ -1,3 +1,8 @@
+console.log(
+  "%cStaging Version",
+  "color: white; font-family:monospace; background-color: red; font-size: 28px"
+);
+
 var Webflow = Webflow || [];
 Webflow.push(function () {
   const promoTimeSelector = "[app='promo_time']";
