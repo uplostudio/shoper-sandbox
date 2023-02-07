@@ -1,6 +1,6 @@
 console.log(
   "%cStaging Version, install CORS extension",
-  "color: white; font-family:monospace; background-color: red; font-size: 20px"
+  "color: white; font-family:monospace; background-color: red; font-size: 16px"
 );
 
 var Webflow = Webflow || [];
