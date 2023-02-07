@@ -1,51 +1,26 @@
-// const myTimeout = setTimeout(ga, 4000);
 let analyticsId;
 let analyticsIdInputValue = document.querySelector("[name='analitycs_id']");
 let isFromBanner = false;
-
-// var intervalId = window.setTimeout(function () {
-//   ga(function (tracker) {
-//     analyticsId = tracker.get("clientId");
-//     analyticsIdInputValue.value = analyticsId;
-//     console.log(analyticsId);
-//     return analyticsIdInputValue;
-//   });
-// }, 2000);
 
 var intervalId = window.setTimeout(function () {
   try {
     const tracker = ga.getAll()[0];
     let analyticsId = tracker.get("clientId");
     analyticsIdInputValue.value = analyticsId;
-    // console.log(analyticsId);
     return analyticsIdInputValue;
   } catch (err) {}
 }, 5000);
 
-// window.addEventListener("load", () => {
-//   try {
-//     let bannerD = document.querySelector("#w-slider-mask-1");
-//     let blackFridaySlide = bannerD.children[2];
-//     blackFridaySlide.id = "blackFridayData";
-
-//     let descendants = blackFridaySlide.querySelectorAll("*");
-
-//     descendants.forEach((n) => {
-//       n.id = "blackFridayData";
-//       n.addEventListener("click", () => {
-//         isFromBanner = true;
-//       });
-//     });
-//   } catch (err) {}
-// });
-
-let inputsStepOne = document.querySelectorAll(
-  "[app='create_trial_step1'] input:not([type='radio']):not([type='checkbox']):not([type='password']):not([type='submit'])"
+let trialStepOneEmailInputs = document.querySelectorAll(
+  "[app='create_trial_step1'] [app='email']"
 );
-
-let trialOpen = document.querySelectorAll("[app='open_trial_modal_button']");
-
-let modal = document.querySelector("[app='create_trial_step1_modal']");
+let emailInput = document.querySelector("[app='email']");
+let trialOpenButton = document.querySelectorAll(
+  "[app='open_trial_modal_button']"
+);
+let trialStepOneModal = document.querySelector(
+  "[app='create_trial_step1_modal']"
+);
 
 // beforeunload
 // formAbandon
@@ -53,13 +28,13 @@ let inputVals;
 let inputValsArr = [];
 let inputValsArrFiltered;
 let elementId;
+let result;
 
 window.addEventListener("beforeunload", () => {
-  inputsStepOne.forEach((n) => {
+  trialStepOneEmailInputs.forEach((n) => {
     inputVals = n.value;
     let element = document.querySelector("[app='create_trial_step1']");
     elementId = element.getAttribute("app");
-
     inputValsArr.push(inputVals);
     inputValsArrFiltered = inputValsArr.filter((el) => el.length > 1);
   });
@@ -75,16 +50,18 @@ window.addEventListener("beforeunload", () => {
   }
 });
 
-trialOpen.forEach((n) => {
+trialOpenButton.forEach((n) => {
   n.addEventListener("click", () => {
-    modal.classList.add("modal--open");
+    trialStepOneModal.classList.add("modal--open");
     $(document.body).css("overflow", "hidden");
   });
 });
 
-inputsStepOne.forEach((n) => {
+trialStepOneEmailInputs.forEach((n) => {
   // Control Blur Step One
-  n.addEventListener("blur", () => {
+  n.addEventListener("blur", function () {
+    checkEmailBlurTrialStepOne(n);
+
     let data;
     let element = document.querySelector("[app='create_trial_step1']");
 
@@ -125,21 +102,18 @@ inputsStepOne.forEach((n) => {
 
 let createTrialStepOne = document.querySelectorAll("[app='submit-step-one']");
 
-createTrialStepOne.forEach((n) => {
-  n.addEventListener("click", (e) => {
+createTrialStepOne.forEach((el) => {
+  el.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
 
-    let form = e.target.form;
-    let emailInput = form.querySelector("[app='email']");
-    let emailValue = emailInput.value;
+    // let form = e.target.form;
+    // let emailInput = form.querySelector("[app='email']");
+    // let emailValue = emailInput.value;
 
-    useRegexEmail(emailValue);
-    checkEmail(e);
+    console.log(result);
 
-    if (useRegexEmail(emailValue)) {
-      // let url = "https://www.shoper.pl/ajax.php";
-
+    if (result) {
       $.ajax({
         url: "https://www.shoper.pl/ajax.php",
         headers: {},
@@ -150,18 +124,15 @@ createTrialStepOne.forEach((n) => {
           analytics_id: analyticsIdInputValue.value,
         },
         success: function (data) {
-          //           console.log(data);
           if (data.code === 2) {
             let errorInfo = form.parentElement.querySelector(".w-form-fail");
             errorInfo.children[0].innerHTML =
               "Uruchomiłeś co najmniej cztery wersje testowe sklepu w zbyt krótkim czasie. Odczekaj 24h od ostatniej udanej próby, zanim zrobisz to ponownie.";
             errorInfo.style.display = "block";
           } else if (data.code === 1 || data.status === 1) {
-            modal.classList.remove("modal--open");
-            // let errorInfo = form.parentElement.querySelector(".w-form-fail");
+            trialStepOneModal.classList.remove("modal--open");
             let trialDomain = document.querySelector("[app='trial-domain']");
             trialDomain.innerHTML = data.host;
-            // errorInfo.style.display = "none";
             document
               .querySelector("[modal='create_trial_step2']")
               .classList.add("modal--open");
