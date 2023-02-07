@@ -11,7 +11,8 @@ let phoneInputValue,
   lastNameInput,
   urlInput,
   phoneInput,
-  textArea;
+  textArea,
+  bodyValue;
 
 let errorBorderColor = `1px solid #eb4826`;
 let initialBorderColor = `1px solid #898989`;
