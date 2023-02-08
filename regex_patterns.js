@@ -31,7 +31,7 @@ function useRegexLastName(lastNameValue) {
 }
 
 function useRegexPhone(phoneInputValue) {
-  let regex = /^\d\d\d\d\d\d\d\d\d/;
+  let regex = /^\d\d\d\d\d\d\d\d\d$/;
   return regex.test(phoneInputValue);
 }
 
