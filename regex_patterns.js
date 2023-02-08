@@ -154,7 +154,6 @@ function checkEmailBlurTrialStepOne(n) {
 
 function checkEmailBlur() {
   emailValue = emailInput.value;
-  console.log(emailValue);
   let errorBoxEmail = emailInput.nextElementSibling;
   if (emailValue === "") {
     emailInput.style.border = errorBorderColor;
@@ -185,7 +184,7 @@ function checkPhoneBlur() {
     phoneInput.style.border = errorBorderColor;
     errorBoxPhone.style.display = "flex";
     errorBoxPhone.children[1].textContent = "Podaj poprawne dane";
-    return true;
+    return false;
   } else if (useRegexPhone(phoneInputValue)) {
     phoneInput.style.border = initialBorderColor;
     errorBoxPhone.style.display = "none";
@@ -196,6 +195,7 @@ function checkPhoneBlur() {
 function checkUrlBlur() {
   urlValue = urlInput.value;
   let errorBoxUrl = urlInput.nextElementSibling;
+
   if (urlValue === "") {
     urlInput.style.border = errorBorderColor;
     errorBoxUrl.style.display = "flex";
@@ -209,6 +209,42 @@ function checkUrlBlur() {
   } else if (useRegexUrl(urlValue)) {
     urlInput.style.border = initialBorderColor;
     errorBoxUrl.style.display = "none";
+    return true;
+  }
+}
+
+function checkUrlBlurRegex() {
+  urlValue = urlInput.value;
+  let errorBoxUrl = urlInput.nextElementSibling;
+
+  if (urlValue === "") {
+    urlInput.style.border = initialBorderColor;
+    errorBoxUrl.style.display = "none";
+    return true;
+  } else if (!useRegexUrl(urlValue)) {
+    urlInput.style.border = errorBorderColor;
+    errorBoxUrl.style.display = "flex";
+    errorBoxUrl.children[1].textContent = "Podaj poprawne dane";
+    return false;
+  } else if (useRegexUrl(urlValue)) {
+    urlInput.style.border = initialBorderColor;
+    errorBoxUrl.style.display = "none";
+    return true;
+  }
+}
+
+function checkTextAreaBlur() {
+  textAreaValue = textArea.value;
+  let errorBoxArea = textArea.nextElementSibling;
+
+  if (textAreaValue === "") {
+    textArea.style.border = errorBorderColor;
+    errorBoxArea.style.display = "flex";
+    errorBoxArea.children[1].textContent = "To pole jest wymagane";
+    return false;
+  } else {
+    textArea.style.border = initialBorderColor;
+    errorBoxArea.style.display = "none";
     return true;
   }
 }

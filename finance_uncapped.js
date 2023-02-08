@@ -1273,9 +1273,9 @@ let prevSlideBtn = document.querySelector("[multi='arrow_prev']");
 let nextSlideBtn = document.querySelector("[multi='arrow_next']");
 
 //  grab form
-let formWrapper = document.querySelector("[app='uncapped_form']");
+formWrapper = document.querySelector("[app='uncapped_form']");
 // grab form trigger
-let formTrigger = formWrapper.querySelector("[multi='submit']");
+formTrigger = formWrapper.querySelector("[multi='submit']");
 // grab all input fields from form without checkboxes
 let companyNameInput = formWrapper.querySelector("[app='company_name']");
 let urlInput = formWrapper.querySelector("[app='url']");
