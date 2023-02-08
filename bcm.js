@@ -39,7 +39,7 @@ formTrigger.addEventListener("click", function (e) {
       headers: {},
       method: "POST",
       data: {
-        action: "vday23",
+        action: "bcm22-2",
         subject: "Gotowy sklep i konsultacja Shoper",
         send: "aHR0cHM6Ly9ob29rcy56YXBpZXIuY29tL2hvb2tzL2NhdGNoLzQ5Mjc4OS9iMGs3cnBxLw==",
         phone: phoneInputValue,
@@ -54,6 +54,8 @@ formTrigger.addEventListener("click", function (e) {
       error: function (data) {
         formWrapper.parentElement.querySelector(".w-form-fail").style.display =
           "block";
+        formWrapper.parentElement.querySelector(".w-form-fail").textContent =
+          "Coś poszło nie tak, spróbuj ponownie.";
       },
     });
   } else {
