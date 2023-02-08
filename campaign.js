@@ -2,101 +2,66 @@ $("[app='open_consultation_modal_button']").on("click", function () {
   $("[app='campaign_modal']").addClass("modal--open");
 });
 
-$("[app='consult-submit']").on("click", function (e) {
+//  grab form
+formWrapper = document.querySelector("[app='campaign']");
+// grab form trigger
+formTrigger = formWrapper.querySelector("[app='consult-submit']");
+// grab all input fields from form without checkboxes
+phoneInput = formWrapper.querySelector("[app='phone_campaign']");
+emailInput = formWrapper.querySelector("[app='email_campaign']");
+urlInput = formWrapper.querySelector("[app='url_campaign']");
+
+// Attach EventListeners to inputs
+
+phoneInput.addEventListener("blur", function () {
+  checkPhoneBlur();
+});
+
+emailInput.addEventListener("blur", function () {
+  checkEmailBlur();
+});
+
+urlInput.addEventListener("blur", function () {
+  checkUrlBlur();
+});
+
+// Attach EventListener to submit button
+
+formTrigger.addEventListener("click", function (e) {
   e.preventDefault();
   e.stopPropagation();
 
-  let form = e.target.form;
-  let phoneInput = form.querySelector("[app='phone_campaign']");
-  let emailInput = form.querySelector("[app='email_campaign']");
-  let urlInput = form.querySelector("[app='url_campaign']");
-  let urlValue = urlInput.value;
-  let emailValue = emailInput.value;
-  let phoneValue = phoneInput.value;
-  let errorBoxPhone = phoneInput.nextElementSibling;
-  let errorBoxMail = emailInput.nextElementSibling;
-  let errorBoxUrl = urlInput.parentNode.nextElementSibling;
+  checkPhoneBlur();
+  checkEmailBlur();
+  checkUrlBlur();
 
-  function useRegexPhone(phoneValue) {
-    let regex = /^\d\d\d\d\d\d\d\d\d$/;
-    return regex.test(phoneValue);
-  }
+  const successInfo = formWrapper.querySelector(".w-form-done");
+  const errorInfo = formWrapper.querySelector(".w-form-fail");
 
-  function useRegexEmail(emailValue) {
-    let regex =
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return regex.test(emailValue);
-  }
-
-  function useRegexUrl(urlValue) {
-    let regex = /[a-zA-Z][a-zA-Z]/gm;
-    return regex.test(urlValue);
-  }
-
-  if (phoneValue.value === "") {
-    phoneInput.style.border = errorBorderColor;
-    errorBoxPhone.style.display = "flex";
-  } else if (!useRegexPhone(phoneValue)) {
-    phoneInput.style.border = errorBorderColor;
-    errorBoxPhone.style.display = "flex";
-  } else if (useRegexPhone(phoneValue)) {
-    phoneInput.style.border = initialBorderColor;
-    errorBoxPhone.style.display = "none";
-  }
-
-  if (emailValue.value === "") {
-    emailInput.style.border = errorBorderColor;
-    errorBoxMail.style.display = "flex";
-  } else if (!useRegexEmail(emailValue)) {
-    emailInput.style.border = errorBorderColor;
-    errorBoxMail.style.display = "flex";
-  } else if (useRegexEmail(emailValue)) {
-    emailInput.style.border = initialBorderColor;
-    errorBoxMail.style.display = "none";
-  }
-
-  if (urlValue.value === "") {
-    urlInput.style.border = errorBorderColor;
-    errorBoxUrl.style.display = "flex";
-  } else if (!useRegexUrl(urlValue)) {
-    urlInput.style.border = errorBorderColor;
-    errorBoxUrl.style.display = "flex";
-  } else if (useRegexUrl(urlValue)) {
-    urlInput.style.border = initialBorderColor;
-    errorBoxUrl.style.display = "none";
-  }
-
-  const successInfo = form.parentNode.querySelector(".w-form-done");
-  const errorInfo = form.parentNode.querySelector(".w-form-fail");
-
-  if (
-    useRegexPhone(phoneValue) &&
-    useRegexEmail(emailValue) &&
-    useRegexUrl(urlValue)
-  ) {
+  if (checkPhoneBlur() && checkEmailBlur() && checkUrlBlur()) {
     $.ajax({
       url: "https://www.shoper.pl/ajax.php",
       headers: {},
       method: "POST",
       data: {
-        action: form.parentNode.getAttribute("action"),
+        action: formWrapper.getAttribute("action"),
         email: emailValue,
-        phone: phoneValue,
+        phone: phoneInputValue,
         url: urlValue,
       },
       success: function (data) {
-        // console.log(data);
         if (data.status === 1) {
-          form.style.display = "none";
-          successInfo.style.display = "block";
-          successInfo.textContent =
+          formWrapper.querySelector("form").style.display = "none";
+          formWrapper.parentElement.querySelector(
+            ".w-form-done"
+          ).style.display = "block";
+          formWrapper.parentElement.querySelector(".w-form-done").textContent =
             "Sprawdź wiadomość, którą właśnie od nas otrzymałeś!";
-          errorInfo.style.display = "none";
+          formWrapper.querySelector("form").reset();
         } else {
-          // console.log(data);
-          errorInfo.style.display = "block";
-          errorInfo.textContent =
-            "Podaj poprawny adres sklepu w formacie nazwasklepu.pl lub www.nazwasklepu.pl";
+          formWrapper.parentElement.querySelector(
+            ".w-form-fail"
+          ).style.display = "block";
         }
       },
     });
