@@ -52,6 +52,12 @@ function useRegexUrl(urlValue) {
   return regex.test(urlValue);
 }
 
+function useRegexHost(hostValue) {
+  let regex =
+    /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
+  return regex.test(hostValue);
+}
+
 /* Regexes end here */
 
 /* Functions start here */
@@ -160,12 +166,12 @@ function checkEmailBlur() {
     errorBoxEmail.style.display = "flex";
     errorBoxEmail.children[1].textContent = "To pole jest wymagane";
     return false;
-  } else if (!useRegexEmail(emailValue)) {
+  } else if (!useRegexEmail(emailValue, hostValue)) {
     emailInput.style.border = errorBorderColor;
     errorBoxEmail.style.display = "flex";
     errorBoxEmail.children[1].textContent = "Podaj poprawne dane";
     return false;
-  } else if (useRegexEmail(emailValue)) {
+  } else if (useRegexEmail(emailValue, hostValue)) {
     emailInput.style.border = initialBorderColor;
     errorBoxEmail.style.display = "none";
     return true;
@@ -195,7 +201,7 @@ function checkPhoneBlur() {
 function checkUrlBlur() {
   urlValue = urlInput.value;
   let errorBoxUrl = urlInput.nextElementSibling;
-
+  console.log(urlInput.value);
   if (urlValue === "") {
     urlInput.style.border = errorBorderColor;
     errorBoxUrl.style.display = "flex";
@@ -208,6 +214,27 @@ function checkUrlBlur() {
     return false;
   } else if (useRegexUrl(urlValue)) {
     urlInput.style.border = initialBorderColor;
+    errorBoxUrl.style.display = "none";
+    return true;
+  }
+}
+
+function checkHostBlur() {
+  hostValue = hostInput.value;
+  let errorBoxUrl = hostInput.nextElementSibling;
+  console.log(hostValue);
+  if (hostValue === "") {
+    hostInput.style.border = errorBorderColor;
+    errorBoxUrl.style.display = "flex";
+    errorBoxUrl.children[1].textContent = "To pole jest wymagane";
+    return false;
+  } else if (!useRegexHost(hostValue)) {
+    hostInput.style.border = errorBorderColor;
+    errorBoxUrl.style.display = "flex";
+    errorBoxUrl.children[1].textContent = "Podaj poprawne dane";
+    return false;
+  } else if (useRegexHost(hostValue)) {
+    hostInput.style.border = initialBorderColor;
     errorBoxUrl.style.display = "none";
     return true;
   }
