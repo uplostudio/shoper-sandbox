@@ -166,12 +166,12 @@ function checkEmailBlur() {
     errorBoxEmail.style.display = "flex";
     errorBoxEmail.children[1].textContent = "To pole jest wymagane";
     return false;
-  } else if (!useRegexEmail(emailValue, hostValue)) {
+  } else if (!useRegexEmail(emailValue)) {
     emailInput.style.border = errorBorderColor;
     errorBoxEmail.style.display = "flex";
     errorBoxEmail.children[1].textContent = "Podaj poprawne dane";
     return false;
-  } else if (useRegexEmail(emailValue, hostValue)) {
+  } else if (useRegexEmail(emailValue)) {
     emailInput.style.border = initialBorderColor;
     errorBoxEmail.style.display = "none";
     return true;
