@@ -1,70 +1,71 @@
-$("[app='open_consultation_modal_button']").on("click", function () {
-  $("[app='campaign_modal']").addClass("modal--open");
-});
+window.addEventListener("load", () => {
+  $("[app='open_consultation_modal_button']").on("click", function () {
+    $("[app='campaign_modal']").addClass("modal--open");
+  });
 
-//  grab form
-formWrapper = document.querySelector("[app='campaign']");
-// grab form trigger
-formTrigger = formWrapper.querySelector("[app='consult-submit']");
-// grab all input fields from form without checkboxes
-phoneInput = formWrapper.querySelector("[app='phone_campaign']");
-emailInput = formWrapper.querySelector("[app='email_campaign']");
-urlInput = formWrapper.querySelector("[app='url_campaign']");
+  //  grab form
+  formWrappers = document.querySelectorAll("[app='campaign']");
+  // grab form trigger
 
-// Attach EventListeners to inputs
+  formWrappers.forEach((n) => {
+    phoneInput = n.querySelector("[app='phone_campaign']");
+    emailInput = n.querySelector("[app='email_campaign']");
+    urlInput = n.querySelector("[app='url_campaign']");
+    formTrigger = n.querySelector("[app='consult-submit']");
+    let action = n.getAttribute("action");
 
-phoneInput.addEventListener("blur", function () {
-  checkPhoneBlur();
-});
+    phoneInput.addEventListener("blur", checkPhoneBlurTwo);
 
-emailInput.addEventListener("blur", function () {
-  checkEmailBlur();
-});
+    emailInput.addEventListener("blur", checkMailBlurTwo);
 
-urlInput.addEventListener("blur", function () {
-  checkUrlBlur();
-});
+    urlInput.addEventListener("blur", checkUrlBlurTwo);
 
-// Attach EventListener to submit button
+    formTrigger.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
 
-formTrigger.addEventListener("click", function (e) {
-  e.preventDefault();
-  e.stopPropagation();
+      formWrapper = this.form;
+      phoneInput = formWrapper.querySelector("[app='phone_campaign']");
+      emailInput = formWrapper.querySelector("[app='email_campaign']");
+      urlInput = formWrapper.querySelector("[app='url_campaign']");
 
-  checkPhoneBlur();
-  checkEmailBlur();
-  checkUrlBlur();
+      console.log(action);
 
-  const successInfo = formWrapper.querySelector(".w-form-done");
-  const errorInfo = formWrapper.querySelector(".w-form-fail");
+      checkUrlBlur();
+      checkPhoneBlur();
+      checkEmailBlur();
 
-  if (checkPhoneBlur() && checkEmailBlur() && checkUrlBlur()) {
-    $.ajax({
-      url: "https://www.shoper.pl/ajax.php",
-      headers: {},
-      method: "POST",
-      data: {
-        action: formWrapper.getAttribute("action"),
-        email: emailValue,
-        phone: phoneInputValue,
-        url: urlValue,
-      },
-      success: function (data) {
-        if (data.status === 1) {
-          formWrapper.querySelector("form").style.display = "none";
-          formWrapper.parentElement.querySelector(
-            ".w-form-done"
-          ).style.display = "block";
-          formWrapper.parentElement.querySelector(".w-form-done").textContent =
-            "Sprawdź wiadomość, którą właśnie od nas otrzymałeś!";
-          formWrapper.querySelector("form").reset();
-        } else {
-          formWrapper.parentElement.querySelector(
-            ".w-form-fail"
-          ).style.display = "block";
-        }
-      },
+      console.log(outcomeOne, outcomeTwo, outcomeThree);
+
+      if (outcomeOne && outcomeTwo && outcomeThree) {
+        console.log("positive");
+        $.ajax({
+          url: "https://www.shoper.pl/ajax.php",
+          headers: {},
+          method: "POST",
+          data: {
+            action: action,
+            email: emailValue,
+            phone: phoneInputValue,
+            url: urlValue,
+          },
+          success: function (data) {
+            if (data.status === 1) {
+              n.querySelector("form").style.display = "none";
+              n.parentElement.querySelector(".w-form-done").style.display =
+                "block";
+              n.parentElement.querySelector(".w-form-done").textContent =
+                "Sprawdź wiadomość, którą właśnie od nas otrzymałeś!";
+              n.querySelector("form").reset();
+            } else {
+              n.parentElement.querySelector(".w-form-fail").style.display =
+                "block";
+            }
+          },
+        });
+      } else {
+        console.log("negative");
+      }
     });
-  } else {
-  }
+  });
 });
