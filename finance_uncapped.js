@@ -1278,7 +1278,7 @@ formWrapper = document.querySelector("[app='uncapped_form']");
 formTrigger = formWrapper.querySelector("[multi='submit']");
 // grab all input fields from form without checkboxes
 let companyNameInput = formWrapper.querySelector("[app='company_name']");
-let urlInput = formWrapper.querySelector("[app='url']");
+urlInput = formWrapper.querySelector("[app='url']");
 let firstNameInput = formWrapper.querySelector("[app='firstName']");
 let lastNameInput = formWrapper.querySelector("[app='lastName']");
 let emailInput = formWrapper.querySelector("[app='email']");

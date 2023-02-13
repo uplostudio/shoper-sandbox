@@ -78,7 +78,7 @@ consultFormSubmit.forEach((button) => {
     let form = e.target.form;
     let phoneInput = form.querySelector("[app='phone_campaign']");
     let emailInput = form.querySelector("[app='email_campaign']");
-    let urlInput = form.querySelector("[app='url_campaign']");
+    urlInput = form.querySelector("[app='url_campaign']");
     let urlValue = urlInput;
     let emailValue = emailInput;
     let phoneValue = phoneInput;
