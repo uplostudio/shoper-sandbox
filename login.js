@@ -3,13 +3,14 @@
 $("[app='open_login_modal_button']").on("click", function () {
   $("[app='login_modal'").addClass("modal--open");
 });
-
-//  grab form
-formWrapper = document.querySelector("[app='login']");
-// grab form trigger
-formTrigger = formWrapper.querySelector("[app='login_submit']");
-// grab all input fields from form without checkboxes
-hostInput = formWrapper.querySelector("[app='host']");
+try {
+  //  grab form
+  formWrapper = document.querySelector("[app='login']");
+  // grab form trigger
+  formTrigger = formWrapper.querySelector("[app='login_submit']");
+  // grab all input fields from form without checkboxes
+  hostInput = formWrapper.querySelector("[app='host']");
+} catch (err) {}
 
 // Attach EventListeners to inputs
 
