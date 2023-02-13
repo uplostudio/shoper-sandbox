@@ -1,13 +1,13 @@
 // Custom banner & custom modal
+try {
+  let customBanner = document.querySelector("[app='custom_banner']");
 
-let customBanner = document.querySelector("[app='custom_banner']");
-
-customBanner.addEventListener("click", () => {
-  let customModal = document.querySelector("[app='bannerModal']");
-  customModal.classList.add("modal--open");
-  $(document.body).css("overflow", "hidden");
-});
-
+  customBanner.addEventListener("click", () => {
+    let customModal = document.querySelector("[app='bannerModal']");
+    customModal.classList.add("modal--open");
+    $(document.body).css("overflow", "hidden");
+  });
+} catch (err) {}
 //  grab form
 formWrapper = document.querySelector("[app='custom_form']");
 // grab form trigger
