@@ -29,16 +29,11 @@ window.addEventListener("load", () => {
       emailInput = formWrapper.querySelector("[app='email_campaign']");
       urlInput = formWrapper.querySelector("[app='url_campaign']");
 
-      console.log(action);
-
       checkUrlBlur();
       checkPhoneBlur();
       checkEmailBlur();
 
-      console.log(outcomeOne, outcomeTwo, outcomeThree);
-
       if (outcomeOne && outcomeTwo && outcomeThree) {
-        console.log("positive");
         $.ajax({
           url: "https://www.shoper.pl/ajax.php",
           headers: {},
@@ -64,7 +59,6 @@ window.addEventListener("load", () => {
           },
         });
       } else {
-        console.log("negative");
       }
     });
   });
