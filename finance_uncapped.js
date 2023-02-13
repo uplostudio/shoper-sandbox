@@ -1279,10 +1279,10 @@ formTrigger = formWrapper.querySelector("[multi='submit']");
 // grab all input fields from form without checkboxes
 let companyNameInput = formWrapper.querySelector("[app='company_name']");
 urlInput = formWrapper.querySelector("[app='url']");
-let firstNameInput = formWrapper.querySelector("[app='firstName']");
-let lastNameInput = formWrapper.querySelector("[app='lastName']");
-let emailInput = formWrapper.querySelector("[app='email']");
-let phoneInput = formWrapper.querySelector("[app='phone']");
+firstNameInput = formWrapper.querySelector("[app='firstName']");
+lastNameInput = formWrapper.querySelector("[app='lastName']");
+emailInput = formWrapper.querySelector("[app='email']");
+phoneInput = formWrapper.querySelector("[app='phone']");
 
 let positive = false;
 
