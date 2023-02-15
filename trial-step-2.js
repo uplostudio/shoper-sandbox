@@ -142,89 +142,91 @@ createTrialStepTwo.forEach((n) => {
     e.preventDefault();
     e.stopPropagation();
     // let url = "https://www.shoper.pl/ajax.php";
+    if (result) {
+      $.ajax({
+        url: "https://www.shoper.pl/ajax.php",
+        headers: {},
+        method: "POST",
+        data: {
+          action: "create_trial_step2",
+          phone: n.querySelector("[app='phone']").value,
+          eventName: "formSubmitSuccess",
+          formId: n.querySelector("form").id,
+          gclid: gclidInput.value,
+          fbclid: fbclidInput.value,
+          blackFridayBanner: isFromBanner,
+          analytics_id: analyticsIdInputValue.value,
+        },
+        success: function (data) {
+          if (data.status === 1) {
+            // MyTrackEvent Success (Step Two)
+            let errorInfo = n.querySelector(".w-form-fail");
 
-    $.ajax({
-      url: "https://www.shoper.pl/ajax.php",
-      headers: {},
-      method: "POST",
-      data: {
-        action: "create_trial_step2",
-        phone: n.querySelector("[app='phone']").value,
-        eventName: "formSubmitSuccess",
-        formId: n.querySelector("form").id,
-        gclid: gclidInput.value,
-        fbclid: fbclidInput.value,
-        blackFridayBanner: isFromBanner,
-        analytics_id: analyticsIdInputValue.value,
-      },
-      success: function (data) {
-        if (data.status === 1) {
-          // MyTrackEvent Success (Step Two)
-          let errorInfo = n.querySelector(".w-form-fail");
+            errorInfo.style.display = "none";
+            if (window.dataLayer) {
+              data = {
+                event: "formSubmitSuccess",
+                eventCategory: "Button modal form sent",
+                formId: n.querySelector("form").id,
+                "shop-id": data.license_id,
+                eventAction: n.querySelector("input[type='submit']").value,
+                eventLabel: window.location.pathname,
+                eventType: n.querySelector("input[type='tel']").value,
+                eventHistory: window.history,
+              };
 
-          errorInfo.style.display = "none";
-          if (window.dataLayer) {
-            data = {
-              event: "formSubmitSuccess",
-              eventCategory: "Button modal form sent",
-              formId: n.querySelector("form").id,
-              "shop-id": data.license_id,
-              eventAction: n.querySelector("input[type='submit']").value,
-              eventLabel: window.location.pathname,
-              eventType: n.querySelector("input[type='tel']").value,
-              eventHistory: window.history,
-            };
+              dataLayer.push(data);
 
-            dataLayer.push(data);
+              data = {
+                event: "myTrackEvent",
+                formId: n.querySelector("form").id,
+                eventCategory: "Button modal form sent",
+                eventAction: n.querySelector("input[type='submit']").value,
+                eventType: n.querySelector("input[type='tel']").value,
+                eventLabel: window.location.pathname,
+              };
 
-            data = {
-              event: "myTrackEvent",
-              formId: n.querySelector("form").id,
-              eventCategory: "Button modal form sent",
-              eventAction: n.querySelector("input[type='submit']").value,
-              eventType: n.querySelector("input[type='tel']").value,
-              eventLabel: window.location.pathname,
-            };
+              dataLayer.push(data);
+              //             console.log(dataLayer);
+            }
+            window.location.href = "https://www.shoper.pl/zaloz-sklep/";
+          } else {
+            //            console.log(data);
+            let errorInfo = n.querySelector(".w-form-fail");
+            errorInfo.children[0].innerHTML =
+              "Coś poszło nie tak. Spróbuj ponownie.";
+            errorInfo.style.display = "block";
+            // MyTrackEvent Error (Step Two)
+            if (window.dataLayer) {
+              data = {
+                event: "formSubmitError",
+                formId: n.querySelector("form").id,
+                eventCategory: "Button modal form error",
+                eventAction: n.querySelector("input[type='submit']").value,
+                eventLabel: window.location.pathname,
+                eventType: n.querySelector("input[type='tel']").value,
+                eventHistory: window.history,
+              };
 
-            dataLayer.push(data);
-            //             console.log(dataLayer);
+              dataLayer.push(data);
+
+              data = {
+                event: "myTrackEvent",
+                formId: n.querySelector("form").id,
+                eventCategory: "Button modal form error",
+                eventAction: n.querySelector("input[type='submit']").value,
+                eventType: n.querySelector("input[type='tel']").value,
+                eventLabel: window.location.pathname,
+              };
+
+              dataLayer.push(data);
+              //             console.log(dataLayer);
+            }
           }
-          window.location.href = "https://www.shoper.pl/zaloz-sklep/";
-        } else {
-          //            console.log(data);
-          let errorInfo = n.querySelector(".w-form-fail");
-          errorInfo.children[0].innerHTML =
-            "Coś poszło nie tak. Spróbuj ponownie.";
-          errorInfo.style.display = "block";
-          // MyTrackEvent Error (Step Two)
-          if (window.dataLayer) {
-            data = {
-              event: "formSubmitError",
-              formId: n.querySelector("form").id,
-              eventCategory: "Button modal form error",
-              eventAction: n.querySelector("input[type='submit']").value,
-              eventLabel: window.location.pathname,
-              eventType: n.querySelector("input[type='tel']").value,
-              eventHistory: window.history,
-            };
-
-            dataLayer.push(data);
-
-            data = {
-              event: "myTrackEvent",
-              formId: n.querySelector("form").id,
-              eventCategory: "Button modal form error",
-              eventAction: n.querySelector("input[type='submit']").value,
-              eventType: n.querySelector("input[type='tel']").value,
-              eventLabel: window.location.pathname,
-            };
-
-            dataLayer.push(data);
-            //             console.log(dataLayer);
-          }
-        }
-      },
-    });
+        },
+      });
+    } else {
+    }
   });
 });
 
