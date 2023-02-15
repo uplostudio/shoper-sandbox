@@ -92,7 +92,8 @@ window.addEventListener("beforeunload", () => {
 
 inputsStepTwo.forEach((n) => {
   // Control Blur Step Two
-  n.addEventListener("blur", () => {
+  n.addEventListener("blur", function () {
+    checkPhoneBlurTrialStepTwo(n);
     let data;
     let element = document.querySelector("[data-name='create_trial_step2']");
     let elementId = element.id;

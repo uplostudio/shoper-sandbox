@@ -159,6 +159,29 @@ function checkEmailBlurTrialStepOne(n) {
   }
 }
 
+function checkPhoneBlurTrialStepTwo(n) {
+  phoneInputValue = n.value;
+  let errorBoxPhone = n.nextElementSibling;
+  if (phoneInputValue === "") {
+    n.style.border = errorBorderColor;
+    errorBoxPhone.style.display = "flex";
+    errorBoxPhone.children[1].textContent = "To pole jest wymagane";
+    result = false;
+    return false;
+  } else if (!useRegexPhone(phoneInputValue)) {
+    n.style.border = errorBorderColor;
+    errorBoxPhone.style.display = "flex";
+    errorBoxPhone.children[1].textContent = "Podaj poprawne dane";
+    result = false;
+    return false;
+  } else if (useRegexPhone(phoneInputValue)) {
+    n.style.border = initialBorderColor;
+    errorBoxPhone.style.display = "none";
+    result = true;
+    return true;
+  }
+}
+
 function checkEmailBlur() {
   emailValue = emailInput.value;
   let errorBoxEmail = emailInput.nextElementSibling;
