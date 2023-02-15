@@ -34,7 +34,7 @@ window.addEventListener("load", () => {
       let regular = data.price;
       let promotion = data.promotion;
 
-      // priceBoxStandard.textContent = promotion.price.standard[1]?.net
+      priceBoxStandard.textContent = "25";
       priceBoxPremium.textContent = regular.premium[1].net;
       priceBoxEnterprise.textContent = regular.enterprise[1].net;
 
@@ -47,14 +47,14 @@ window.addEventListener("load", () => {
           boxLabelStandard.textContent = "brutto miesięcznie";
           boxLabelPremium.textContent = "brutto miesięcznie";
           boxLabelEnterprise.textContent = "brutto miesięcznie";
-          priceBoxStandard.textContent = regular.standard[1].gross;
+          priceBoxStandard.textContent = "30.75";
           priceBoxPremium.textContent = regular.premium[1].gross;
           priceBoxEnterprise.textContent = regular.enterprise[1].gross;
         } else {
           boxLabelStandard.textContent = "netto miesięcznie";
           boxLabelPremium.textContent = "netto miesięcznie";
           boxLabelEnterprise.textContent = "netto miesięcznie";
-          priceBoxStandard.textContent = regular.standard[1].net;
+          priceBoxStandard.textContent = "25";
           priceBoxPremium.textContent = regular.premium[1].net;
           priceBoxEnterprise.textContent = regular.enterprise[1].net;
         }
