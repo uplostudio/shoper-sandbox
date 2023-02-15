@@ -107,7 +107,7 @@ createTrialStepOne.forEach((el) => {
     e.preventDefault();
     e.stopPropagation();
 
-    // let form = e.target.form;
+    let form = e.target.form;
     // let emailInput = form.querySelector("[app='email']");
     // let emailValue = emailInput.value;
 
