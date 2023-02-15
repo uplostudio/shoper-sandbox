@@ -1,4 +1,8 @@
 window.addEventListener("load", () => {
+  $("[app='open_create_trial_step1_modal_button']").on("click", function () {
+    $("[app='create_trial_step1_modal']").addClass("modal--open");
+    $(document.body).css("overflow", "hidden");
+  });
   // form + checkbox
   let toggleForm = document.querySelector("[app='toggle_form']");
   let toggle = document.querySelector("[app='toggle_button']");
