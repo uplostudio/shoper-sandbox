@@ -127,7 +127,8 @@ function checkNipBlur() {
   } else if (!useRegexNip(nipValue)) {
     nipInput.style.border = errorBorderColor;
     errorBoxNip.style.display = "flex";
-    errorBoxNip.children[1].textContent = "Podaj poprawne dane";
+    errorBoxNip.children[1].textContent =
+      "Podaj poprawny numer NIP składający się z 10 cyfr bez znaków specjalnych";
     return false;
   } else if (useRegexNip(nipValue)) {
     nipInput.style.border = initialBorderColor;
