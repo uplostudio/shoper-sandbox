@@ -171,7 +171,8 @@ function checkPhoneBlurTrialStepTwo(n) {
   } else if (!useRegexPhone(phoneInputValue)) {
     n.style.border = errorBorderColor;
     errorBoxPhone.style.display = "flex";
-    errorBoxPhone.children[1].textContent = "Podaj poprawne dane";
+    errorBoxPhone.children[1].textContent =
+      "Podaj poprawny numer telefonu składający się z 9 cyfr bez znaków specjalnych";
     result = false;
     return false;
   } else if (useRegexPhone(phoneInputValue)) {
@@ -213,7 +214,8 @@ function checkPhoneBlur() {
   } else if (!useRegexPhone(phoneInputValue)) {
     phoneInput.style.border = errorBorderColor;
     errorBoxPhone.style.display = "flex";
-    errorBoxPhone.children[1].textContent = "Podaj poprawne dane";
+    errorBoxPhone.children[1].textContent =
+      "Podaj poprawny numer telefonu składający się z 9 cyfr bez znaków specjalnych";
     return false;
   } else if (useRegexPhone(phoneInputValue)) {
     phoneInput.style.border = initialBorderColor;
@@ -336,7 +338,8 @@ function checkPhoneBlurTwo() {
   } else if (!useRegexPhone(phoneInputValue)) {
     this.style.border = errorBorderColor;
     errorBoxPhone.style.display = "flex";
-    errorBoxPhone.children[1].textContent = "Podaj poprawne dane";
+    errorBoxPhone.children[1].textContent =
+      "Podaj poprawny numer telefonu składający się z 9 cyfr bez znaków specjalnych";
     outcomeTwo = false;
     return false;
   } else if (useRegexPhone(phoneInputValue)) {
