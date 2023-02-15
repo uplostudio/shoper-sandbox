@@ -1317,6 +1317,9 @@ formPrevStepBtn.addEventListener("click", () => {
 formNextStepBtn.addEventListener("click", (e) => {
   e.preventDefault();
   e.stopPropagation();
+
+  checkUrlBlur();
+  checkCompanyNameBlur();
 });
 
 formTrigger.addEventListener("click", (e) => {
@@ -1417,6 +1420,6 @@ setInterval(function checkFirstStep() {
       nextSlideBtn.click();
     });
   } else {
-    formNextStepBtn.style.pointerEvents = "none";
+    // formNextStepBtn.style.pointerEvents = "none";
   }
 }, 700);
