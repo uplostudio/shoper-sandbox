@@ -96,7 +96,7 @@ formTrigger.addEventListener("click", function (e) {
       },
       method: "POST",
     }).then(function (response) {
-      this.style.display = "none";
+      this.form.style.display = "none";
       this.parentElement.querySelector(".w-form-done").style.display = "block";
     });
   } else {
