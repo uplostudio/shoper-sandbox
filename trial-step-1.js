@@ -124,7 +124,7 @@ createTrialStepOne.forEach((el) => {
           analytics_id: analyticsIdInputValue.value,
         },
         success: function (data) {
-          if (data.code === 2) {
+          if (data.code === 2 || data.code === 3) {
             let errorInfo = form.parentElement.querySelector(".w-form-fail");
             errorInfo.children[0].innerHTML =
               "Uruchomiłeś co najmniej cztery wersje testowe sklepu w zbyt krótkim czasie. Odczekaj 24h od ostatniej udanej próby, zanim zrobisz to ponownie.";
