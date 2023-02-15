@@ -131,12 +131,11 @@ formTrigger.addEventListener("click", function (e) {
       .then((data) => {
         let status = data.status;
         if (status === "success") {
-          form.reset();
+          formWrapper.querySelector("form").reset();
           window.location.href = `https://app.booste.com/sign-up?firstname=${firstNameValue}&lastname=${lastNameValue}&email=${emailValue}&website=${urlValue}`;
         } else {
-          form.style.display = "none";
-          form.parentElement.querySelector(".w-form-fail").style.display =
-            "block";
+          formWrapper.querySelector("form").style.display = "none";
+          formWrapper.querySelector(".w-form-fail").style.display = "block";
         }
       });
   }
