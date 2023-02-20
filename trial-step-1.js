@@ -8,7 +8,9 @@ var intervalId = window.setTimeout(function () {
     let analyticsId = tracker.get("clientId");
     analyticsIdInputValue.value = analyticsId;
     return analyticsIdInputValue;
-  } catch (err) {}
+  } catch (err) {
+    analyticsId = "undefinded";
+  }
 }, 5000);
 
 let trialStepOneEmailInputs = document.querySelectorAll(
@@ -111,8 +113,6 @@ createTrialStepOne.forEach((el) => {
     // let emailInput = form.querySelector("[app='email']");
     // let emailValue = emailInput.value;
 
-    console.log(result);
-
     if (result) {
       $.ajax({
         url: "https://www.shoper.pl/ajax.php",
@@ -121,7 +121,7 @@ createTrialStepOne.forEach((el) => {
         data: {
           action: "create_trial_step1",
           email: emailValue,
-          analytics_id: analyticsIdInputValue.value,
+          analytics_id: analyticsId,
         },
         success: function (data) {
           if (data.code === 2 || data.code === 3) {
