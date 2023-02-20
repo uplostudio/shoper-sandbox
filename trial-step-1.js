@@ -9,7 +9,7 @@ var intervalId = window.setTimeout(function () {
     analyticsIdInputValue.value = analyticsId;
     return analyticsIdInputValue;
   } catch (err) {
-    analyticsId = "undefinded";
+    analyticsId = "undefined";
   }
 }, 5000);
 
