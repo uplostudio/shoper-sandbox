@@ -10,6 +10,10 @@ window.addEventListener("load", () => {
       document
         .querySelector("[app='custom_form']")
         .setAttribute("package", "31");
+    } else {
+      document
+        .querySelector("[app='custom_form']")
+        .setAttribute("package", "7");
     }
     $(document.body).css("overflow", "hidden");
   });
