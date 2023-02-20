@@ -7,11 +7,13 @@ var intervalId = window.setTimeout(function () {
     const tracker = ga.getAll()[0];
     let analyticsId = tracker.get("clientId");
     analyticsIdInputValue.value = analyticsId;
-    return analyticsIdInputValue;
-  } catch (err) {
-    analyticsId = "undefined";
-  }
-}, 5000);
+    if ((analyticsId = "undefined")) {
+      analyticsIdInputValue.value = "undefined";
+    } else {
+      return analyticsIdInputValue.value;
+    }
+  } catch (err) {}
+}, 2000);
 
 let trialStepOneEmailInputs = document.querySelectorAll(
   "[app='create_trial_step1'] [app='email']"
@@ -121,7 +123,7 @@ createTrialStepOne.forEach((el) => {
         data: {
           action: "create_trial_step1",
           email: emailValue,
-          analytics_id: analyticsId,
+          analytics_id: analyticsIdInputValue.value,
         },
         success: function (data) {
           if (data.code === 2 || data.code === 3) {

@@ -6,6 +6,7 @@ window.addEventListener("load", () => {
   $("[app='open_custom_modal_button']").on("click", function () {
     $("[app='bannerModal']").addClass("modal--open");
     let cardType = this.parentElement.getAttribute("card");
+
     if (cardType === "enterprise") {
       document
         .querySelector("[app='custom_form']")
