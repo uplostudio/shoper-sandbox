@@ -5,6 +5,12 @@ window.addEventListener("load", () => {
   });
   $("[app='open_custom_modal_button']").on("click", function () {
     $("[app='bannerModal']").addClass("modal--open");
+    let cardType = this.parentElement.getAttribute("card");
+    if (cardType === "enterprise") {
+      document
+        .querySelector("[app='custom_form']")
+        .setAttribute("package", "31");
+    }
     $(document.body).css("overflow", "hidden");
   });
   // form + checkbox
@@ -60,9 +66,10 @@ window.addEventListener("load", () => {
         headers: {},
         method: "POST",
         data: {
-          action: "bcm22-2",
-          subject: "Gotowy sklep i konsultacja Shoper",
-          send: "aHR0cHM6Ly9ob29rcy56YXBpZXIuY29tL2hvb2tzL2NhdGNoLzQ5Mjc4OS9iMGs3cnBxLw==",
+          action: formWrapper.getAttribute("action"),
+          type: formWrapper.getAttribute("type"),
+          source_id: formWrapper.getAttribute("source_id"),
+          package: formWrapper.getAttribute("package"),
           phone: phoneInputValue,
           email: emailValue,
         },
@@ -124,8 +131,6 @@ window.addEventListener("load", () => {
         }
       });
     },
-    error: function (err) {
-      console.log(err);
-    },
+    error: function (err) {},
   });
 });
