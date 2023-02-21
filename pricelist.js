@@ -6,7 +6,9 @@ window.addEventListener("load", () => {
   $("[app='open_custom_modal_button']").on("click", function () {
     $("[app='bannerModal']").addClass("modal--open");
     let cardType = this.parentElement.getAttribute("card");
-
+    this.parentElement.style.display = "grid";
+    console.log(this);
+    this.parentElement.querySelector(".w-form-done").style.display = "none";
     if (cardType === "enterprise") {
       document
         .querySelector("[app='custom_form']")
@@ -20,8 +22,11 @@ window.addEventListener("load", () => {
   });
   // form + checkbox
   let toggleForm = document.querySelector("[app='toggle_form']");
-  let toggle = document.querySelector("[app='toggle_button']");
-  let checkbox = toggleForm.querySelector("input[type='checkbox']");
+  let togglePrice = document.querySelector("[app='toggle_button']");
+  let checkboxPrice = toggleForm.querySelector("input[type='checkbox']");
+  let toggleFormYear = document.querySelector("[app='yearly_form']");
+  let toggleYear = document.querySelector("[app='yearlyToggle']");
+  let checkboxYear = toggleFormYear.querySelector("input[type='checkbox']");
   // promo prices
   let priceBoxStandard = document.querySelector("[pricebox='standard']")
     .children[0];
@@ -110,29 +115,80 @@ window.addEventListener("load", () => {
       let regular = data.price;
       let promotion = data.promotion;
 
-      priceBoxStandard.textContent = "25";
+      priceBoxStandard.textContent = promotion.price.standard[12].month.net;
       priceBoxPremium.textContent = regular.premium[1].net;
       priceBoxEnterprise.textContent = regular.enterprise[1].net;
 
       console.log(data);
 
-      toggle.addEventListener("click", () => {
-        checkbox.click();
+      togglePrice.addEventListener("click", () => {
+        checkboxPrice.click();
 
-        if (checkbox.checked) {
+        if (checkboxPrice.checked && !checkboxYear.checked) {
           boxLabelStandard.textContent = "brutto miesięcznie";
           boxLabelPremium.textContent = "brutto miesięcznie";
           boxLabelEnterprise.textContent = "brutto miesięcznie";
-          priceBoxStandard.textContent = "30.75";
+          priceBoxStandard.textContent =
+            promotion.price.standard[12].month.gross;
           priceBoxPremium.textContent = regular.premium[1].gross;
           priceBoxEnterprise.textContent = regular.enterprise[1].gross;
+        } else if (!checkboxPrice.checked && !checkboxYear.checked) {
+          boxLabelStandard.textContent = "netto miesięcznie";
+          boxLabelPremium.textContent = "netto miesięcznie";
+          boxLabelEnterprise.textContent = "netto miesięcznie";
+          priceBoxStandard.textContent = promotion.price.standard[12].month.net;
+          priceBoxPremium.textContent = regular.premium[1].net;
+          priceBoxEnterprise.textContent = regular.enterprise[1].net;
+        } else if (checkboxPrice.checked && checkboxYear.checked) {
+          boxLabelStandard.textContent = "brutto miesięcznie";
+          boxLabelPremium.textContent = "brutto miesięcznie";
+          boxLabelEnterprise.textContent = "brutto miesięcznie";
+          priceBoxStandard.textContent =
+            promotion.price.standard[12].month.gross;
+          priceBoxPremium.textContent = regular.premium[12].year.gross;
+          priceBoxEnterprise.textContent = regular.enterprise[12].year.gross;
         } else {
           boxLabelStandard.textContent = "netto miesięcznie";
           boxLabelPremium.textContent = "netto miesięcznie";
           boxLabelEnterprise.textContent = "netto miesięcznie";
-          priceBoxStandard.textContent = "25";
+          priceBoxStandard.textContent = promotion.price.standard[12].month.net;
+          priceBoxPremium.textContent = regular.premium[12].year.net;
+          priceBoxEnterprise.textContent = regular.enterprise[12].year.net;
+        }
+      });
+      toggleYear.addEventListener("click", () => {
+        checkboxYear.click();
+
+        if (checkboxPrice.checked && !checkboxYear.checked) {
+          boxLabelStandard.textContent = "brutto miesięcznie";
+          boxLabelPremium.textContent = "brutto miesięcznie";
+          boxLabelEnterprise.textContent = "brutto miesięcznie";
+          priceBoxStandard.textContent =
+            promotion.price.standard[12].month.gross;
+          priceBoxPremium.textContent = regular.premium[1].gross;
+          priceBoxEnterprise.textContent = regular.enterprise[1].gross;
+        } else if (!checkboxPrice.checked && !checkboxYear.checked) {
+          boxLabelStandard.textContent = "netto miesięcznie";
+          boxLabelPremium.textContent = "netto miesięcznie";
+          boxLabelEnterprise.textContent = "netto miesięcznie";
+          priceBoxStandard.textContent = promotion.price.standard[12].month.net;
           priceBoxPremium.textContent = regular.premium[1].net;
           priceBoxEnterprise.textContent = regular.enterprise[1].net;
+        } else if (checkboxPrice.checked && checkboxYear.checked) {
+          boxLabelStandard.textContent = "brutto miesięcznie";
+          boxLabelPremium.textContent = "brutto miesięcznie";
+          boxLabelEnterprise.textContent = "brutto miesięcznie";
+          priceBoxStandard.textContent =
+            promotion.price.standard[12].year.gross;
+          priceBoxPremium.textContent = regular.premium[12].year.gross;
+          priceBoxEnterprise.textContent = regular.enterprise[12].year.gross;
+        } else {
+          boxLabelStandard.textContent = "netto miesięcznie";
+          boxLabelPremium.textContent = "netto miesięcznie";
+          boxLabelEnterprise.textContent = "netto miesięcznie";
+          priceBoxStandard.textContent = promotion.price.standard[12].year.net;
+          priceBoxPremium.textContent = regular.premium[12].year.net;
+          priceBoxEnterprise.textContent = regular.enterprise[12].year.net;
         }
       });
     },
