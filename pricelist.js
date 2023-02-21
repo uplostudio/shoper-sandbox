@@ -119,8 +119,6 @@ window.addEventListener("load", () => {
       priceBoxPremium.textContent = regular.premium[1].net;
       priceBoxEnterprise.textContent = regular.enterprise[1].net;
 
-      console.log(data);
-
       togglePrice.addEventListener("click", () => {
         checkboxPrice.click();
 
