@@ -6,12 +6,7 @@ var intervalId = window.setTimeout(function () {
   try {
     const tracker = ga.getAll()[0];
     let analyticsId = tracker.get("clientId");
-    analyticsIdInputValue.value = analyticsId;
-    if ((analyticsId = "undefined")) {
-      analyticsIdInputValue.value = "undefined";
-    } else {
-      return analyticsIdInputValue.value;
-    }
+    return analyticsId;
   } catch (err) {}
 }, 2000);
 
@@ -123,7 +118,7 @@ createTrialStepOne.forEach((el) => {
         data: {
           action: "create_trial_step1",
           email: emailValue,
-          analytics_id: analyticsIdInputValue.value,
+          analytics_id: analyticsId,
         },
         success: function (data) {
           if (data.code === 2 || data.code === 3) {
