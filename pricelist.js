@@ -67,8 +67,8 @@ window.addEventListener("load", () => {
   });
 
   formTrigger.addEventListener("click", function (e) {
-    e.preventDefault();
     e.stopPropagation();
+    e.preventDefault();
 
     checkEmailBlur();
     checkPhoneBlur();
