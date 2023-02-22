@@ -7,7 +7,6 @@ window.addEventListener("load", () => {
     $("[app='bannerModal']").addClass("modal--open");
     let cardType = this.parentElement.getAttribute("card");
     this.parentElement.style.display = "grid";
-    console.log(this);
     this.parentElement.querySelector(".w-form-done").style.display = "none";
     if (cardType === "enterprise") {
       document
@@ -70,7 +69,7 @@ window.addEventListener("load", () => {
     e.stopPropagation();
     e.preventDefault();
 
-    console.log(e);
+    console.log(e.target);
 
     checkEmailBlur();
     checkPhoneBlur();
