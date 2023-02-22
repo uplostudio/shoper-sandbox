@@ -70,6 +70,8 @@ window.addEventListener("load", () => {
     e.stopPropagation();
     e.preventDefault();
 
+    console.log(e);
+
     checkEmailBlur();
     checkPhoneBlur();
 
