@@ -45,6 +45,9 @@ window.addEventListener("load", () => {
   let boxLabelPremium = document.querySelector("[pricelabel='premium']");
   let boxLabelEnterprise = document.querySelector("[pricelabel='enterprise']");
 
+  let net = "netto miesięcznie";
+  let gross = "brutto miesięcznie";
+
   //  grab form
   formWrapper = document.querySelector("[app='custom_form']");
   // grab form trigger
@@ -115,79 +118,147 @@ window.addEventListener("load", () => {
       let regular = data.price;
       let promotion = data.promotion;
 
-      priceBoxStandard.textContent = promotion.price.standard[12].month.net;
-      priceBoxPremium.textContent = regular.premium[1].net;
-      priceBoxEnterprise.textContent = regular.enterprise[1].net;
+      // Standard Gross 1 month price
+      let standardWholePriceGross = promotion.price.standard[12].month.gross;
+      let standardMainPartGross = standardWholePriceGross
+        .toString()
+        .split(".")[0];
+      let standardSparePartGross = standardWholePriceGross
+        .toString()
+        .split(".")[1];
+      // Standard Net 1 month price
+      let standardWholePriceNet = promotion.price.standard[12].month.net;
+      let standardMainPartNet = standardWholePriceNet.toString().split(".")[0];
+      let standardSparePartNet = standardWholePriceNet.toString().split(".")[1];
+      // Premium  Gross 1 month price
+      let premiumWholePriceGross = regular.premium[1].gross;
+      let premiumMainPartGross = premiumWholePriceGross
+        .toString()
+        .split(".")[0];
+      let premiumSparePartGross = premiumWholePriceGross
+        .toString()
+        .split(".")[1];
+      // Premium  Net 1 month price
+      let premiumWholePriceNet = regular.premium[1].net;
+      let premiumMainPartNet = premiumWholePriceNet.toString().split(".")[0];
+      let premiumSparePartNet = premiumWholePriceNet.toString().split(".")[1];
+      // Enterprise Gross 1 month price
+      let enterpriseWholePriceGross = regular.enterprise[1].gross;
+      let enterpriseMainPartGross = enterpriseWholePriceGross
+        .toString()
+        .split(".")[0];
+      let enterpriseSparePartGross = enterpriseWholePriceGross
+        .toString()
+        .split(".")[1];
+      // Enterprise Net 1 month price
+      let enterpriseWholePriceNet = regular.enterprise[1].net;
+      let enterpriseMainPartNet = enterpriseWholePriceNet
+        .toString()
+        .split(".")[0];
+      let enterpriseSparePartNet = enterpriseWholePriceNet
+        .toString()
+        .split(".")[1];
+
+      // Standard Gross year price
+      let standardWholePriceGrossY = regular.standard[12].year.gross;
+      let standardMainPartGrossY = standardWholePriceGrossY
+        .toString()
+        .split(".")[0];
+      let standardSparePartGrossY = standardWholePriceGrossY
+        .toString()
+        .split(".")[1];
+      // Standard Net year price
+      let standardWholePriceNetY = regular.standard[12].year.net;
+      let standardMainPartNetY = standardWholePriceNetY
+        .toString()
+        .split(".")[0];
+      let standardSparePartNetY = standardWholePriceNetY
+        .toString()
+        .split(".")[1];
+      // Premium  Gross year price
+      let premiumWholePriceGrossY = regular.premium[12].year.gross;
+      let premiumMainPartGrossY = premiumWholePriceGrossY
+        .toString()
+        .split(".")[0];
+      let premiumSparePartGrossY = premiumWholePriceGrossY
+        .toString()
+        .split(".")[1];
+      // Premium  Net year price
+      let premiumWholePriceNetY = regular.premium[12].year.net;
+      let premiumMainPartNetY = premiumWholePriceNetY.toString().split(".")[0];
+      let premiumSparePartNetY = premiumWholePriceNetY.toString().split(".")[1];
+      // Enterprise Gross year price
+      let enterpriseWholePriceGrossY = regular.enterprise[12].year.gross;
+      let enterpriseMainPartGrossY = enterpriseWholePriceGrossY
+        .toString()
+        .split(".")[0];
+      let enterpriseSparePartGrossY = enterpriseWholePriceGrossY
+        .toString()
+        .split(".")[1];
+      // Enterprise Net year price
+      let enterpriseWholePriceNetY = regular.enterprise[12].year.net;
+      let enterpriseMainPartNetY = enterpriseWholePriceNetY
+        .toString()
+        .split(".")[0];
+      let enterpriseSparePartNetY = enterpriseWholePriceNetY
+        .toString()
+        .split(".")[1];
+
+      priceBoxStandard.textContent = standardWholePriceNet;
+      priceBoxPremium.textContent = premiumWholePriceNet;
+      priceBoxEnterprise.textContent = enterpriseWholePriceNet;
+
+      function checkValues() {
+        if (checkboxPrice.checked && !checkboxYear.checked) {
+          boxLabelStandard.textContent = gross;
+          boxLabelPremium.textContent = gross;
+          boxLabelEnterprise.textContent = gross;
+          priceBoxStandard.textContent = standardMainPartGross;
+          priceBoxStandard.nextElementSibling.children[0].textContent = `,${standardSparePartGross}`;
+          priceBoxPremium.textContent = premiumMainPartGross;
+          priceBoxPremium.nextElementSibling.children[0].textContent = `,${premiumSparePartGross}`;
+          priceBoxEnterprise.textContent = enterpriseMainPartGross;
+          priceBoxEnterprise.nextElementSibling.children[0].textContent = `,${enterpriseSparePartGross}`;
+        } else if (!checkboxPrice.checked && !checkboxYear.checked) {
+          boxLabelStandard.textContent = net;
+          boxLabelPremium.textContent = net;
+          boxLabelEnterprise.textContent = net;
+          priceBoxStandard.textContent = promotion.price.standard[12].month.net;
+          priceBoxStandard.nextElementSibling.children[0].textContent = ``;
+          priceBoxPremium.textContent = regular.premium[1].net;
+          priceBoxPremium.nextElementSibling.children[0].textContent = ``;
+          priceBoxEnterprise.textContent = regular.enterprise[1].net;
+          priceBoxEnterprise.nextElementSibling.children[0].textContent = ``;
+        } else if (checkboxPrice.checked && checkboxYear.checked) {
+          boxLabelStandard.textContent = gross;
+          boxLabelPremium.textContent = gross;
+          boxLabelEnterprise.textContent = gross;
+          priceBoxStandard.textContent = standardMainPartGrossY;
+          priceBoxStandard.nextElementSibling.children[0].textContent = `,${standardSparePartGrossY}`;
+          priceBoxPremium.textContent = premiumMainPartGrossY;
+          priceBoxPremium.nextElementSibling.children[0].textContent = `,${premiumSparePartGrossY}`;
+          priceBoxEnterprise.textContent = enterpriseMainPartGrossY;
+          priceBoxEnterprise.nextElementSibling.children[0].textContent = ``;
+        } else {
+          boxLabelStandard.textContent = net;
+          boxLabelPremium.textContent = net;
+          boxLabelEnterprise.textContent = net;
+          priceBoxStandard.textContent = standardWholePriceNetY;
+          priceBoxStandard.nextElementSibling.children[0].textContent = ``;
+          priceBoxPremium.textContent = premiumWholePriceNetY;
+          priceBoxPremium.nextElementSibling.children[0].textContent = ``;
+          priceBoxEnterprise.textContent = enterpriseWholePriceNetY;
+          priceBoxEnterprise.nextElementSibling.children[0].textContent = ``;
+        }
+      }
 
       togglePrice.addEventListener("click", () => {
         checkboxPrice.click();
-
-        if (checkboxPrice.checked && !checkboxYear.checked) {
-          boxLabelStandard.textContent = "brutto miesięcznie";
-          boxLabelPremium.textContent = "brutto miesięcznie";
-          boxLabelEnterprise.textContent = "brutto miesięcznie";
-          priceBoxStandard.textContent =
-            promotion.price.standard[12].month.gross;
-          priceBoxPremium.textContent = regular.premium[1].gross;
-          priceBoxEnterprise.textContent = regular.enterprise[1].gross;
-        } else if (!checkboxPrice.checked && !checkboxYear.checked) {
-          boxLabelStandard.textContent = "netto miesięcznie";
-          boxLabelPremium.textContent = "netto miesięcznie";
-          boxLabelEnterprise.textContent = "netto miesięcznie";
-          priceBoxStandard.textContent = promotion.price.standard[12].month.net;
-          priceBoxPremium.textContent = regular.premium[1].net;
-          priceBoxEnterprise.textContent = regular.enterprise[1].net;
-        } else if (checkboxPrice.checked && checkboxYear.checked) {
-          boxLabelStandard.textContent = "brutto miesięcznie";
-          boxLabelPremium.textContent = "brutto miesięcznie";
-          boxLabelEnterprise.textContent = "brutto miesięcznie";
-          priceBoxStandard.textContent =
-            promotion.price.standard[12].month.gross;
-          priceBoxPremium.textContent = regular.premium[12].year.gross;
-          priceBoxEnterprise.textContent = regular.enterprise[12].year.gross;
-        } else {
-          boxLabelStandard.textContent = "netto miesięcznie";
-          boxLabelPremium.textContent = "netto miesięcznie";
-          boxLabelEnterprise.textContent = "netto miesięcznie";
-          priceBoxStandard.textContent = promotion.price.standard[12].month.net;
-          priceBoxPremium.textContent = regular.premium[12].year.net;
-          priceBoxEnterprise.textContent = regular.enterprise[12].year.net;
-        }
+        checkValues();
       });
       toggleYear.addEventListener("click", () => {
         checkboxYear.click();
-
-        if (checkboxPrice.checked && !checkboxYear.checked) {
-          boxLabelStandard.textContent = "brutto miesięcznie";
-          boxLabelPremium.textContent = "brutto miesięcznie";
-          boxLabelEnterprise.textContent = "brutto miesięcznie";
-          priceBoxStandard.textContent =
-            promotion.price.standard[12].month.gross;
-          priceBoxPremium.textContent = regular.premium[1].gross;
-          priceBoxEnterprise.textContent = regular.enterprise[1].gross;
-        } else if (!checkboxPrice.checked && !checkboxYear.checked) {
-          boxLabelStandard.textContent = "netto miesięcznie";
-          boxLabelPremium.textContent = "netto miesięcznie";
-          boxLabelEnterprise.textContent = "netto miesięcznie";
-          priceBoxStandard.textContent = promotion.price.standard[12].month.net;
-          priceBoxPremium.textContent = regular.premium[1].net;
-          priceBoxEnterprise.textContent = regular.enterprise[1].net;
-        } else if (checkboxPrice.checked && checkboxYear.checked) {
-          boxLabelStandard.textContent = "brutto miesięcznie";
-          boxLabelPremium.textContent = "brutto miesięcznie";
-          boxLabelEnterprise.textContent = "brutto miesięcznie";
-          priceBoxStandard.textContent =
-            promotion.price.standard[12].year.gross;
-          priceBoxPremium.textContent = regular.premium[12].year.gross;
-          priceBoxEnterprise.textContent = regular.enterprise[12].year.gross;
-        } else {
-          boxLabelStandard.textContent = "netto miesięcznie";
-          boxLabelPremium.textContent = "netto miesięcznie";
-          boxLabelEnterprise.textContent = "netto miesięcznie";
-          priceBoxStandard.textContent = promotion.price.standard[12].year.net;
-          priceBoxPremium.textContent = regular.premium[12].year.net;
-          priceBoxEnterprise.textContent = regular.enterprise[12].year.net;
-        }
+        checkValues();
       });
     },
     error: function (err) {},
