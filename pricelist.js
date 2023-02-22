@@ -66,8 +66,8 @@ window.addEventListener("load", () => {
   });
 
   formTrigger.addEventListener("click", function (e) {
-    e.stopPropagation();
     e.preventDefault();
+    e.stopPropagation();
 
     console.log(e.target);
 
