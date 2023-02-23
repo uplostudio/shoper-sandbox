@@ -7,7 +7,6 @@ window.addEventListener("load", () => {
     $("[app='bannerModal']").addClass("modal--open");
     let cardType = this.parentElement.getAttribute("card");
     this.parentElement.style.display = "grid";
-    this.parentElement.querySelector(".w-form-done").style.display = "none";
     if (cardType === "enterprise") {
       document
         .querySelector("[app='custom_form']")
@@ -69,17 +68,13 @@ window.addEventListener("load", () => {
     e.preventDefault();
     e.stopPropagation();
 
-    console.log(e.target);
-
     checkEmailBlur();
     checkPhoneBlur();
 
     if (checkEmailBlur() && checkPhoneBlur()) {
       $.ajax({
         url: "https://www.shoper.pl/ajax.php",
-        headers: {
-          "Access-Control-Max-Age": 86400,
-        },
+        headers: {},
         method: "POST",
         data: {
           action: formWrapper.getAttribute("action"),
