@@ -79,7 +79,9 @@ window.addEventListener("load", () => {
 
       $.ajax({
         url: "https://www.shoper.pl/ajax.php",
-        headers: {},
+        headers: {
+          "Access-Control-Max-Age": 86400,
+        },
         method: "POST",
         data: {
           action: formWrapper.getAttribute("action"),
