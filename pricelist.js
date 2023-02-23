@@ -55,6 +55,15 @@ window.addEventListener("load", () => {
   let priceBoxEnterpriseRegular = document.querySelector(
     "[regular='enterprise']"
   );
+  let priceBoxStandardRegularMini = document.querySelector(
+    "[regular='standard_mini']"
+  );
+  let priceBoxPremiumRegularMini = document.querySelector(
+    "[regular='premium_mini']"
+  );
+  let priceBoxEnterpriseRegularMini = document.querySelector(
+    "[regular='enterprise_mini']"
+  );
 
   // labels
   let boxLabelStandard = document.querySelector("[pricelabel='standard']");
@@ -240,6 +249,10 @@ window.addEventListener("load", () => {
       priceBoxStandardRegular.textContent = "";
       priceBoxPremiumRegular.textContent = "";
       priceBoxEnterpriseRegular.textContent = "";
+
+      priceBoxStandardRegularMini.textContent = "";
+      priceBoxPremiumRegularMini.textContent = "";
+      priceBoxEnterpriseRegularMini.textContent = "";
 
       function checkValues() {
         boxStandard = document.querySelector("#box-standard");
