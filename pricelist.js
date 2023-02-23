@@ -74,34 +74,52 @@ window.addEventListener("load", () => {
     checkEmailBlur();
     checkPhoneBlur();
 
+    const body = new FormData();
+    body.append("action", formWrapper.getAttribute("action"));
+    body.append("type", formWrapper.getAttribute("type"));
+    body.append("source_id", formWrapper.getAttribute("source_id"));
+    body.append("package", formWrapper.getAttribute("package"));
+    body.append("email", phoneInputValue);
+    body.append("phone", emailValue);
+
     if (checkEmailBlur() && checkPhoneBlur()) {
-      $.ajax({
-        url: "https://www.shoper.pl/ajax.php",
-        headers: {},
+      fetch(`https://www.shoper.pl/ajax.php`, {
+        body,
+        headers: {
+          Accept: "*/*",
+        },
         method: "POST",
-        data: {
-          action: formWrapper.getAttribute("action"),
-          type: formWrapper.getAttribute("type"),
-          source_id: formWrapper.getAttribute("source_id"),
-          package: formWrapper.getAttribute("package"),
-          phone: phoneInputValue,
-          email: emailValue,
-        },
-        success: function (data) {
-          formWrapper.querySelector("form").style.display = "none";
-          formWrapper.parentElement.querySelector(
-            ".w-form-done"
-          ).style.display = "block";
-          formWrapper.querySelector("form").reset();
-        },
-        error: function (data) {
-          formWrapper.parentElement.querySelector(
-            ".w-form-fail"
-          ).style.display = "block";
-          formWrapper.parentElement.querySelector(".w-form-fail").textContent =
-            "Coś poszło nie tak, spróbuj ponownie.";
-        },
-      });
+      })
+        .then((response) => response.json())
+        .then((response) => console.log(response));
+
+      // $.ajax({
+      //   url: "https://www.shoper.pl/ajax.php",
+      //   headers: {},
+      //   method: "POST",
+      //   data: {
+      //     action: formWrapper.getAttribute("action"),
+      //     type: formWrapper.getAttribute("type"),
+      //     source_id: formWrapper.getAttribute("source_id"),
+      //     package: formWrapper.getAttribute("package"),
+      //     phone: phoneInputValue,
+      //     email: emailValue,
+      //   },
+      //   success: function (data) {
+      //     formWrapper.querySelector("form").style.display = "none";
+      //     formWrapper.parentElement.querySelector(
+      //       ".w-form-done"
+      //     ).style.display = "block";
+      //     formWrapper.querySelector("form").reset();
+      //   },
+      //   error: function (data) {
+      //     formWrapper.parentElement.querySelector(
+      //       ".w-form-fail"
+      //     ).style.display = "block";
+      //     formWrapper.parentElement.querySelector(".w-form-fail").textContent =
+      //       "Coś poszło nie tak, spróbuj ponownie.";
+      //   },
+      // });
     } else {
     }
   });
