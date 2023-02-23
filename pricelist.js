@@ -32,6 +32,23 @@ window.addEventListener("load", () => {
     .children[0];
   let priceBoxEnterprise = document.querySelector("[pricebox='enterprise']")
     .children[0];
+  // clones
+  let priceBoxStandardClone = document.querySelector(
+    "[pricebox='standardClone']"
+  ).children[0];
+  let priceBoxPremiumClone = document.querySelector("[pricebox='premiumClone']")
+    .children[0];
+  let priceBoxEnterpriseClone = document.querySelector(
+    "[pricebox='enterpriseClone']"
+  ).children[0];
+  // price boxes
+  let boxStandard;
+  let boxPremium;
+  let boxEnterprise;
+  // price boxes clones
+  let boxStandardClone = document.querySelector("#box-standard-clone");
+  let boxPremiumClone = document.querySelector("#box-premium-clone");
+  let boxEnterpriseClone = document.querySelector("#box-enterprise-clone");
   // regular prices
   let priceBoxStandardRegular = document.querySelector("[regular='standard']");
   let priceBoxPremiumRegular = document.querySelector("[regular='premium']");
@@ -70,6 +87,14 @@ window.addEventListener("load", () => {
 
     checkEmailBlur();
     checkPhoneBlur();
+
+    const body = new FormData();
+    body.append("action", formWrapper.getAttribute("action"));
+    body.append("type", formWrapper.getAttribute("type"));
+    body.append("source_id", formWrapper.getAttribute("source_id"));
+    body.append("package", formWrapper.getAttribute("package"));
+    body.append("email", phoneInputValue);
+    body.append("phone", emailValue);
 
     if (checkEmailBlur() && checkPhoneBlur()) {
       $.ajax({
@@ -206,7 +231,15 @@ window.addEventListener("load", () => {
       priceBoxPremium.textContent = premiumWholePriceNet;
       priceBoxEnterprise.textContent = enterpriseWholePriceNet;
 
+      priceBoxStandardClone.textContent = standardWholePriceNet;
+      priceBoxPremiumClone.textContent = premiumWholePriceNet;
+      priceBoxEnterpriseClone.textContent = enterpriseWholePriceNet;
+
       function checkValues() {
+        boxStandard = document.querySelector("#box-standard");
+        boxPremium = document.querySelector("#box-premium");
+        boxEnterprise = document.querySelector("#box-enterprise");
+
         if (checkboxPrice.checked && !checkboxYear.checked) {
           boxLabelStandard.textContent = gross;
           boxLabelPremium.textContent = gross;
@@ -248,6 +281,10 @@ window.addEventListener("load", () => {
           priceBoxEnterprise.textContent = enterpriseWholePriceNetY;
           priceBoxEnterprise.nextElementSibling.children[0].textContent = ``;
         }
+
+        boxStandardClone.innerHTML = boxStandard.innerHTML;
+        boxPremiumClone.innerHTML = boxPremium.innerHTML;
+        boxEnterpriseClone.innerHTML = boxEnterprise.innerHTML;
       }
 
       togglePrice.addEventListener("click", () => {
