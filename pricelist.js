@@ -75,8 +75,6 @@ window.addEventListener("load", () => {
     checkPhoneBlur();
 
     if (checkEmailBlur() && checkPhoneBlur()) {
-      fetch(`https://www.shoper.pl/ajax.php`, {});
-
       $.ajax({
         url: "https://www.shoper.pl/ajax.php",
         headers: {
