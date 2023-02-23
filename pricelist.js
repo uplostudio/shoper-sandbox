@@ -226,7 +226,7 @@ window.addEventListener("load", () => {
       let enterpriseSparePartNetY = enterpriseWholePriceNetY
         .toString()
         .split(".")[1];
-
+      // initial values
       priceBoxStandard.textContent = standardWholePriceNet;
       priceBoxPremium.textContent = premiumWholePriceNet;
       priceBoxEnterprise.textContent = enterpriseWholePriceNet;
@@ -235,11 +235,16 @@ window.addEventListener("load", () => {
       priceBoxPremiumClone.textContent = premiumWholePriceNet;
       priceBoxEnterpriseClone.textContent = enterpriseWholePriceNet;
 
+      priceBoxEnterprise.nextElementSibling.children[0].textContent = ``;
+      priceBoxStandardRegular.textContent = "";
+      priceBoxPremiumRegular.textContent = "";
+      priceBoxEnterpriseRegular.textcontent = "";
+
       function checkValues() {
         boxStandard = document.querySelector("#box-standard");
         boxPremium = document.querySelector("#box-premium");
         boxEnterprise = document.querySelector("#box-enterprise");
-
+        // gross & monthy
         if (checkboxPrice.checked && !checkboxYear.checked) {
           boxLabelStandard.textContent = gross;
           boxLabelPremium.textContent = gross;
@@ -250,6 +255,10 @@ window.addEventListener("load", () => {
           priceBoxPremium.nextElementSibling.children[0].textContent = `,${premiumSparePartGross}`;
           priceBoxEnterprise.textContent = enterpriseMainPartGross;
           priceBoxEnterprise.nextElementSibling.children[0].textContent = `,${enterpriseSparePartGross}`;
+          priceBoxStandardRegular.textContent = "";
+          priceBoxPremiumRegular.textContent = "";
+          priceBoxEnterpriseRegular.textcontent = "";
+          // net & monthly
         } else if (!checkboxPrice.checked && !checkboxYear.checked) {
           boxLabelStandard.textContent = net;
           boxLabelPremium.textContent = net;
@@ -260,6 +269,10 @@ window.addEventListener("load", () => {
           priceBoxPremium.nextElementSibling.children[0].textContent = ``;
           priceBoxEnterprise.textContent = regular.enterprise[1].net;
           priceBoxEnterprise.nextElementSibling.children[0].textContent = ``;
+          priceBoxStandardRegular.textContent = "";
+          priceBoxPremiumRegular.textContent = "";
+          priceBoxEnterpriseRegular.textcontent = "";
+          // gross & yearly
         } else if (checkboxPrice.checked && checkboxYear.checked) {
           boxLabelStandard.textContent = gross;
           boxLabelPremium.textContent = gross;
@@ -270,7 +283,11 @@ window.addEventListener("load", () => {
           priceBoxPremium.nextElementSibling.children[0].textContent = `,${premiumSparePartGrossY}`;
           priceBoxEnterprise.textContent = enterpriseMainPartGrossY;
           priceBoxEnterprise.nextElementSibling.children[0].textContent = ``;
+          priceBoxStandardRegular.textContent = `${standardWholePriceGross}zł`;
+          priceBoxPremiumRegular.textContent = `${premiumWholePriceGross}zł`;
+          priceBoxEnterpriseRegular.textcontent = `${enterpriseWholePriceGross}zł`;
         } else {
+          // gross & yearly
           boxLabelStandard.textContent = net;
           boxLabelPremium.textContent = net;
           boxLabelEnterprise.textContent = net;
@@ -280,17 +297,21 @@ window.addEventListener("load", () => {
           priceBoxPremium.nextElementSibling.children[0].textContent = ``;
           priceBoxEnterprise.textContent = enterpriseWholePriceNetY;
           priceBoxEnterprise.nextElementSibling.children[0].textContent = ``;
+          priceBoxStandardRegular.textContent = `${standardWholePriceNet}zł`;
+          priceBoxPremiumRegular.textContent = `${premiumWholePriceNet}zł`;
+          priceBoxEnterpriseRegular.textcontent = `${enterpriseWholePriceNet}zł`;
         }
-
+        // duplicate values to the compact cards at the bottom
         boxStandardClone.innerHTML = boxStandard.innerHTML;
         boxPremiumClone.innerHTML = boxPremium.innerHTML;
         boxEnterpriseClone.innerHTML = boxEnterprise.innerHTML;
       }
-
+      //  event when net/gross clicked
       togglePrice.addEventListener("click", () => {
         checkboxPrice.click();
         checkValues();
       });
+      //  event when monthly/yearly clicked
       toggleYear.addEventListener("click", () => {
         checkboxYear.click();
         checkValues();
