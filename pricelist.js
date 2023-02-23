@@ -55,6 +55,7 @@ window.addEventListener("load", () => {
   let priceBoxEnterpriseRegular = document.querySelector(
     "[regular='enterprise']"
   );
+
   // labels
   let boxLabelStandard = document.querySelector("[pricelabel='standard']");
   let boxLabelPremium = document.querySelector("[pricelabel='premium']");
@@ -235,10 +236,10 @@ window.addEventListener("load", () => {
       priceBoxPremiumClone.textContent = premiumWholePriceNet;
       priceBoxEnterpriseClone.textContent = enterpriseWholePriceNet;
 
-      priceBoxEnterprise.nextElementSibling.children[0].textContent = ``;
+      // priceBoxEnterprise.nextElementSibling.children[0].textContent = ``;
       priceBoxStandardRegular.textContent = "";
       priceBoxPremiumRegular.textContent = "";
-      priceBoxEnterpriseRegular.textcontent = "";
+      priceBoxEnterpriseRegular.textContent = "";
 
       function checkValues() {
         boxStandard = document.querySelector("#box-standard");
@@ -257,7 +258,7 @@ window.addEventListener("load", () => {
           priceBoxEnterprise.nextElementSibling.children[0].textContent = `,${enterpriseSparePartGross}`;
           priceBoxStandardRegular.textContent = "";
           priceBoxPremiumRegular.textContent = "";
-          priceBoxEnterpriseRegular.textcontent = "";
+          priceBoxEnterpriseRegular.textContent = "";
           // net & monthly
         } else if (!checkboxPrice.checked && !checkboxYear.checked) {
           boxLabelStandard.textContent = net;
@@ -271,7 +272,7 @@ window.addEventListener("load", () => {
           priceBoxEnterprise.nextElementSibling.children[0].textContent = ``;
           priceBoxStandardRegular.textContent = "";
           priceBoxPremiumRegular.textContent = "";
-          priceBoxEnterpriseRegular.textcontent = "";
+          priceBoxEnterpriseRegular.textContent = "";
           // gross & yearly
         } else if (checkboxPrice.checked && checkboxYear.checked) {
           boxLabelStandard.textContent = gross;
@@ -285,7 +286,7 @@ window.addEventListener("load", () => {
           priceBoxEnterprise.nextElementSibling.children[0].textContent = ``;
           priceBoxStandardRegular.textContent = `${standardWholePriceGross}zł`;
           priceBoxPremiumRegular.textContent = `${premiumWholePriceGross}zł`;
-          priceBoxEnterpriseRegular.textcontent = `${enterpriseWholePriceGross}zł`;
+          priceBoxEnterpriseRegular.textContent = `${enterpriseWholePriceGross}zł`;
         } else {
           // gross & yearly
           boxLabelStandard.textContent = net;
@@ -299,7 +300,7 @@ window.addEventListener("load", () => {
           priceBoxEnterprise.nextElementSibling.children[0].textContent = ``;
           priceBoxStandardRegular.textContent = `${standardWholePriceNet}zł`;
           priceBoxPremiumRegular.textContent = `${premiumWholePriceNet}zł`;
-          priceBoxEnterpriseRegular.textcontent = `${enterpriseWholePriceNet}zł`;
+          priceBoxEnterpriseRegular.textContent = `${enterpriseWholePriceNet}zł`;
         }
         // duplicate values to the compact cards at the bottom
         boxStandardClone.innerHTML = boxStandard.innerHTML;
