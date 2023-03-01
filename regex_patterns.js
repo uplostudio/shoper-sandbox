@@ -149,7 +149,7 @@ function checkEmailBlurTrialStepOne(n) {
   } else if (!useRegexEmail(emailValue)) {
     n.style.border = errorBorderColor;
     errorBoxEmail.style.display = "flex";
-    errorBoxEmail.children[1].textContent = "Podaj poprawne dane";
+    errorBoxEmail.children[1].textContent = "Podaj poprawny adres e-mail";
     result = false;
     return false;
   } else if (useRegexEmail(emailValue)) {
@@ -195,7 +195,7 @@ function checkEmailBlur() {
   } else if (!useRegexEmail(emailValue)) {
     emailInput.style.border = errorBorderColor;
     errorBoxEmail.style.display = "flex";
-    errorBoxEmail.children[1].textContent = "Podaj poprawne dane";
+    errorBoxEmail.children[1].textContent = "Podaj poprawny adres e-mail";
     return false;
   } else if (useRegexEmail(emailValue)) {
     emailInput.style.border = initialBorderColor;
@@ -316,7 +316,7 @@ function checkMailBlurTwo() {
   } else if (!useRegexEmail(emailValue)) {
     this.style.border = errorBorderColor;
     errorBoxEmail.style.display = "flex";
-    errorBoxEmail.children[1].textContent = "Podaj poprawne dane";
+    errorBoxEmail.children[1].textContent = "Podaj poprawny adres e-mail";
     outcomeOne = false;
     return false;
   } else if (useRegexEmail(emailValue)) {
