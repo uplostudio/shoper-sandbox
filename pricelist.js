@@ -266,7 +266,7 @@ window.addEventListener("load", () => {
         boxStandard = document.querySelector("#box-standard");
         boxPremium = document.querySelector("#box-premium");
         boxEnterprise = document.querySelector("#box-enterprise");
-        // gross & monthy
+        // gross & monthly
         if (checkboxPrice.checked && !checkboxYear.checked) {
           boxLabelStandard.textContent = gross;
           boxLabelPremium.textContent = gross;
