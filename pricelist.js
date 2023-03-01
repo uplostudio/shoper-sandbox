@@ -258,9 +258,9 @@ window.addEventListener("load", () => {
       priceBoxPremiumRegularMini.textContent = "";
       priceBoxEnterpriseRegularMini.textContent = "";
 
-      standardBadge.style.display = "block";
-      premiumBadge.style.display = "block";
-      enterpriseBadge.style.display = "block";
+      standardBadge.style.display = "none";
+      premiumBadge.style.display = "none";
+      enterpriseBadge.style.display = "none";
 
       function checkValues() {
         boxStandard = document.querySelector("#box-standard");
