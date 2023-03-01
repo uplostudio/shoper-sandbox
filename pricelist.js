@@ -70,6 +70,11 @@ window.addEventListener("load", () => {
   let boxLabelPremium = document.querySelector("[pricelabel='premium']");
   let boxLabelEnterprise = document.querySelector("[pricelabel='enterprise']");
 
+  // badges
+  let standardBadge = document.querySelector("[standard='badge']");
+  let premiumBadge = document.querySelector("[premium='badge']");
+  let enterpriseBadge = document.querySelector("[enterprise='badge']");
+
   let net = "netto miesięcznie";
   let gross = "brutto miesięcznie";
 
@@ -245,7 +250,6 @@ window.addEventListener("load", () => {
       priceBoxPremiumClone.textContent = premiumWholePriceNet;
       priceBoxEnterpriseClone.textContent = enterpriseWholePriceNet;
 
-      // priceBoxEnterprise.nextElementSibling.children[0].textContent = ``;
       priceBoxStandardRegular.textContent = "";
       priceBoxPremiumRegular.textContent = "";
       priceBoxEnterpriseRegular.textContent = "";
@@ -253,6 +257,10 @@ window.addEventListener("load", () => {
       priceBoxStandardRegularMini.textContent = "";
       priceBoxPremiumRegularMini.textContent = "";
       priceBoxEnterpriseRegularMini.textContent = "";
+
+      standardBadge.style.display = "block";
+      premiumBadge.style.display = "block";
+      enterpriseBadge.style.display = "block";
 
       function checkValues() {
         boxStandard = document.querySelector("#box-standard");
@@ -272,6 +280,9 @@ window.addEventListener("load", () => {
           priceBoxStandardRegular.textContent = "";
           priceBoxPremiumRegular.textContent = "";
           priceBoxEnterpriseRegular.textContent = "";
+          standardBadge.style.display = "none";
+          premiumBadge.style.display = "none";
+          enterpriseBadge.style.display = "none";
           // net & monthly
         } else if (!checkboxPrice.checked && !checkboxYear.checked) {
           boxLabelStandard.textContent = net;
@@ -286,6 +297,9 @@ window.addEventListener("load", () => {
           priceBoxStandardRegular.textContent = "";
           priceBoxPremiumRegular.textContent = "";
           priceBoxEnterpriseRegular.textContent = "";
+          standardBadge.style.display = "none";
+          premiumBadge.style.display = "none";
+          enterpriseBadge.style.display = "none";
           // gross & yearly
         } else if (checkboxPrice.checked && checkboxYear.checked) {
           boxLabelStandard.textContent = gross;
@@ -300,6 +314,9 @@ window.addEventListener("load", () => {
           priceBoxStandardRegular.textContent = `${standardWholePriceGross}zł`;
           priceBoxPremiumRegular.textContent = `${premiumWholePriceGross}zł`;
           priceBoxEnterpriseRegular.textContent = `${enterpriseWholePriceGross}zł`;
+          standardBadge.style.display = "block";
+          premiumBadge.style.display = "block";
+          enterpriseBadge.style.display = "block";
         } else {
           // gross & yearly
           boxLabelStandard.textContent = net;
@@ -314,6 +331,9 @@ window.addEventListener("load", () => {
           priceBoxStandardRegular.textContent = `${standardWholePriceNet}zł`;
           priceBoxPremiumRegular.textContent = `${premiumWholePriceNet}zł`;
           priceBoxEnterpriseRegular.textContent = `${enterpriseWholePriceNet}zł`;
+          standardBadge.style.display = "block";
+          premiumBadge.style.display = "block";
+          enterpriseBadge.style.display = "block";
         }
         // duplicate values to the compact cards at the bottom
         boxStandardClone.innerHTML = boxStandard.innerHTML;
