@@ -1,9 +1,7 @@
-// caculate menu height based on black friday's banner
-
 setInterval(function () {
   try {
     let menu = document.querySelector(".nav__menu");
-    let banner = document.querySelector("[app='custom_banner']");
+    let banner = document.querySelector(".banner__vday.v3");
     bannerHeightString = window.getComputedStyle(banner).height;
     bannerHeightValue = parseInt(bannerHeightString);
 
