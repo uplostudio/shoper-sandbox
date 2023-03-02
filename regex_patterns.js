@@ -1,7 +1,7 @@
 const fire = String.fromCodePoint(0x1f6a7);
 
 console.error(
-  `%c❗️${fire} Staging Version, install CORS extension. Forms don't work without extension! ${fire}❗️`,
+  `%c❗️${fire} Staging Version, install CORS extension. Forms don't work without extension ${fire}❗️`,
   "color: red; font-weight: 600; font-family:monospace; background-color: transparent; font-size: 1.125rem"
 );
 
