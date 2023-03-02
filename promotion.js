@@ -1,6 +1,8 @@
+const fire = String.fromCodePoint(0x1f6a7);
+
 console.log(
-  "%cStaging Version, install CORS extension",
-  "color: white; font-family:monospace; background-color: red; font-size: 16px"
+  `%c❗️${fire} Staging Version, install CORS extension. Forms don't work without extension! ${fire}❗️`,
+  "color: red; font-weight: 600; font-family:monospace; background-color: white; font-size: 16px"
 );
 
 var Webflow = Webflow || [];
