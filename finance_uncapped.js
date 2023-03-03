@@ -1,8 +1,6 @@
 let countrySelect = document.querySelector("#country");
 
-let monthlyIncomeInputForCheck = document.querySelector(
-  "[multi='monthly_euro_income']"
-);
+let monthlyIncomeInputForCheck = document.querySelector("[multi='monthly_euro_income']");
 
 monthlyIncomeInputForCheck.addEventListener("change", function () {
   if (monthlyIncomeInputForCheck.value === "30") {
@@ -1284,6 +1282,8 @@ lastNameInput = formWrapper.querySelector("[app='lastName']");
 emailInput = formWrapper.querySelector("[app='email']");
 phoneInput = formWrapper.querySelector("[app='phone']");
 
+formWrapper.setAttribute("action", "financing_uncapped");
+
 let positive = false;
 
 urlInput.addEventListener("blur", function () {
@@ -1329,13 +1329,9 @@ formTrigger.addEventListener("click", (e) => {
   // first step
   let countryInput = formWrapper.querySelector("[multi='country']");
   let countryValue = countryInput.value;
-  let monthlyIncomeInput = formWrapper.querySelector(
-    "[multi='monthly_euro_income']"
-  );
+  let monthlyIncomeInput = formWrapper.querySelector("[multi='monthly_euro_income']");
   let monthlyIncomeValue = monthlyIncomeInput.value;
-  let businessTypeInput = formWrapper.querySelector(
-    "[multi='business_activity_type']"
-  );
+  let businessTypeInput = formWrapper.querySelector("[multi='business_activity_type']");
   let businessTypeValue = businessTypeInput.value;
   // second step
 
@@ -1371,16 +1367,9 @@ formTrigger.addEventListener("click", (e) => {
   body.append("phone", phoneInputValue);
   body.append("acceptAgree", privacyTerms.value);
   body.append("acceptInfo", overallTerms.value);
+  body.append("action", formWrapper.getAttribute("action"));
 
-  if (
-    companyValue !== "" &&
-    checkUrlBlur() &&
-    checkFirstNameBlur() &&
-    checkLastNameBlur() &&
-    checkEmailBlur() &&
-    checkPhoneBlur() &&
-    privacyTerms.checked
-  ) {
+  if (companyValue !== "" && checkUrlBlur() && checkFirstNameBlur() && checkLastNameBlur() && checkEmailBlur() && checkPhoneBlur() && privacyTerms.checked) {
     fetch(`https://www.shoper.pl/ajax.php`, {
       body,
       action: "financing_uncapped",
@@ -1402,11 +1391,7 @@ setInterval(function checkFirstStep() {
   let urlInput = formWrapper.querySelector("[app='url']");
   let urlValue = urlInput.value;
 
-  if (
-    useRegexUrl(urlValue) &&
-    companyValue !== "" &&
-    monthlyIncomeInputForCheck.value !== "30"
-  ) {
+  if (useRegexUrl(urlValue) && companyValue !== "" && monthlyIncomeInputForCheck.value !== "30") {
     formNextStepBtn.classList.remove("inactive");
     positive = true;
   } else {
