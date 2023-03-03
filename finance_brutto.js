@@ -26,6 +26,8 @@ urlInput.addEventListener("blur", function () {
   checkUrlBlur();
 });
 
+formWrapper.setAttribute("action", "loan_decision_contact");
+
 // Attach EventListener to submit button
 
 formTrigger.addEventListener("click", function (e) {
@@ -39,9 +41,7 @@ formTrigger.addEventListener("click", function (e) {
 
   let bruttoTerms = formWrapper.querySelector("[name='brutto_terms']");
   let bruttoClause = formWrapper.querySelector("[name='brutto_info_clause']");
-  let shoperPersonalData = formWrapper.querySelector(
-    "[name='shoper_personal_data']"
-  );
+  let shoperPersonalData = formWrapper.querySelector("[name='shoper_personal_data']");
 
   if (!bruttoTerms.checked) {
     bruttoTerms.previousElementSibling.style.border = errorBorderColor;
@@ -79,16 +79,9 @@ formTrigger.addEventListener("click", function (e) {
   body.append("bruttoTerms", bruttoTerms.value);
   body.append("bruttoClause", bruttoClause.value);
   body.append("shoperPersonalData", shoperPersonalData.value);
+  body.append("action", formWrapper.getAttribute("action"));
 
-  if (
-    checkNipBlur() &&
-    checkPhoneBlur() &&
-    checkEmailBlur() &&
-    checkUrlBlur() &&
-    bruttoTerms.checked &&
-    bruttoClause.checked &&
-    shoperPersonalData.checked
-  ) {
+  if (checkNipBlur() && checkPhoneBlur() && checkEmailBlur() && checkUrlBlur() && bruttoTerms.checked && bruttoClause.checked && shoperPersonalData.checked) {
     fetch(`https://www.shoper.pl/ajax.php`, {
       body,
       headers: {
