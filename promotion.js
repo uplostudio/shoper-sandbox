@@ -7,6 +7,10 @@ Webflow.push(function () {
   const oldPriceYear = "[app='promo_title_old']";
   const newPriceYear = "[app='promo_title_new']";
 
+  const percentDiscount = document.querySelector("[hero='percentDiscount']");
+  const regularPrice = document.querySelector("[hero='regularPrice']");
+  const promotionPrice = document.querySelector("[hero='promotionPrice']");
+
   $.ajax({
     url: "https://www.shoper.pl/ajax.php",
     headers: {},
@@ -20,16 +24,18 @@ Webflow.push(function () {
       let yearlyStandardPrice = data.package.price.total;
       let yearlyPromoPrice = data.package.price_promo.total;
 
+      // Hero Section Offer On Home Page
+
+      percentDiscount.textContent = `-${discountPercentage}%`;
+      regularPrice.textContent = `${yearlyStandardPrice}`;
+      promotionPrice.textContent = `${yearlyPromoPrice} zł / pierwszy rok`;
+
       document.title = `(Staging) Sklep internetowy - Załóż sklep online z Shoper od ${monthlyPromotion} zł / miesiąc`;
 
       $(promoPriceSelector).text(` ${monthlyPromotion} `);
 
-      $(dailyPromo).text(
-        `Sklep internetowy ${discountPercentage} % taniej - Już od ${monthlyPromotion} zł miesięcznie!`
-      );
-      $(promoTitleSelector).text(
-        `Roczny abonament sklepu ponad ${discountPercentage} taniej`
-      );
+      $(dailyPromo).text(`Sklep internetowy ${discountPercentage} % taniej - Już od ${monthlyPromotion} zł miesięcznie!`);
+      $(promoTitleSelector).text(`Roczny abonament sklepu ponad ${discountPercentage} taniej`);
       $(oldPriceYear).text(`${yearlyStandardPrice}`);
       $(newPriceYear).text(`${yearlyPromoPrice}`);
 
@@ -56,9 +62,7 @@ Webflow.push(function () {
         }
 
         // Display the result in the element with id="demo"
-        $(promoTimeSelector).text(
-          "00:" + hours + ":" + minutes + ":" + seconds
-        );
+        $(promoTimeSelector).text("00:" + hours + ":" + minutes + ":" + seconds);
 
         // If the count down is finished, write some text
         if (distance < 0) {
