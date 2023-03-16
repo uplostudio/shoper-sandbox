@@ -25,7 +25,6 @@ window.addEventListener("load", () => {
       phoneInput = formWrapper.querySelector("[app='phone_campaign']");
       emailInput = formWrapper.querySelector("[app='email_campaign']");
 
-      checkUrlBlur();
       checkPhoneBlur();
       checkEmailBlur();
 
