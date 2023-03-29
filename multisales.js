@@ -45,6 +45,8 @@ formWrappers.forEach((n) => {
           form_name: action,
           thulium_id: 52,
           zapier: "aHR0cHM6Ly9ob29rcy56YXBpZXIuY29tL2hvb2tzL2NhdGNoLzQ5Mjc4OS8zb2gxc29nLw==",
+          fbclid: fbclidValue,
+          gclid: gclidValue,
         },
         success: function (data) {
           if (data.status === 1) {
