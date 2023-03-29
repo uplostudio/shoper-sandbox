@@ -1,5 +1,5 @@
-$("[app='open_consultation_modal_button']").on("click", function () {
-  $("[app='campaign_modal']").addClass("modal--open");
+$("[app='open_multisales_modal_button']").on("click", function () {
+  $("[app='multisales_modal']").addClass("modal--open");
 });
 
 //  grab form
