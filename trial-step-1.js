@@ -2,6 +2,8 @@ let analyticsId;
 let analyticsIdInputValue = document.querySelector("[name='analitycs_id']");
 let isFromBanner = false;
 
+let loader = document.querySelector(".loading-in-button");
+
 var intervalId = window.setTimeout(function () {
   try {
     const tracker = ga.getAll()[0];
@@ -10,16 +12,10 @@ var intervalId = window.setTimeout(function () {
   } catch (err) {}
 }, 2000);
 
-let trialStepOneEmailInputs = document.querySelectorAll(
-  "[app='create_trial_step1'] [app='email']"
-);
+let trialStepOneEmailInputs = document.querySelectorAll("[app='create_trial_step1'] [app='email']");
 emailInput = document.querySelector("[app='email']");
-let trialOpenButton = document.querySelectorAll(
-  "[app='open_trial_modal_button']"
-);
-let trialStepOneModal = document.querySelector(
-  "[app='create_trial_step1_modal']"
-);
+let trialOpenButton = document.querySelectorAll("[app='open_trial_modal_button']");
+let trialStepOneModal = document.querySelector("[app='create_trial_step1_modal']");
 
 // beforeunload
 // formAbandon
@@ -111,6 +107,7 @@ createTrialStepOne.forEach((el) => {
     // let emailValue = emailInput.value;
 
     if (result) {
+      loader.style.display = "block";
       $.ajax({
         url: "https://www.shoper.pl/ajax.php",
         headers: {},
@@ -122,23 +119,23 @@ createTrialStepOne.forEach((el) => {
         },
         success: function (data) {
           if (data.code === 2 || data.code === 3) {
-            let errorInfo = form.parentElement.querySelector(".w-form-fail");
+            let errorInfo = e.target.closest("form").parentElement.querySelector(".w-form-fail");
             errorInfo.children[0].innerHTML =
               "Uruchomiłeś co najmniej cztery wersje testowe sklepu w zbyt krótkim czasie. Odczekaj 24h od ostatniej udanej próby, zanim zrobisz to ponownie.";
             errorInfo.style.display = "block";
+            loader.style.display = "none";
           } else if (data.code === 1 || data.status === 1) {
             trialStepOneModal.classList.remove("modal--open");
             let trialDomain = document.querySelector("[app='trial-domain']");
             trialDomain.innerHTML = data.host;
-            document
-              .querySelector("[modal='create_trial_step2']")
-              .classList.add("modal--open");
+            document.querySelector("[modal='create_trial_step2']").classList.add("modal--open");
+            loader.style.display = "none";
             $(document.body).css("overflow", "hidden");
             if (window.dataLayer) {
               data = {
                 event: "trial_EmailSubmitted",
                 "shop-id": data.shop_id,
-                formId: e.target.form.id,
+                formId: form.id,
                 email: emailValue,
               };
 
@@ -159,8 +156,7 @@ createTrialStepOne.forEach((el) => {
                 event: "myTrackEvent",
                 formId: e.target.form.id,
                 eventCategory: "Button form sent",
-                eventAction: e.target.form.querySelector("input[type='submit']")
-                  .value,
+                eventAction: e.target.form.querySelector("input[type='submit']").value,
                 eventType: emailValue,
                 eventLabel: window.location.pathname,
               };
@@ -176,8 +172,7 @@ createTrialStepOne.forEach((el) => {
                 formId: e.target.form.id,
                 eventCategory: "Button form error",
                 // eventAction: n.querySelector("input[type='submit']:nth-child(1)").value,
-                eventAction: e.target.form.querySelector("input[type='submit']")
-                  .value,
+                eventAction: e.target.form.querySelector("input[type='submit']").value,
                 eventLabel: window.location.pathname,
                 eventType: emailValue,
                 eventHistory: window.history,
@@ -189,8 +184,7 @@ createTrialStepOne.forEach((el) => {
                 event: "myTrackEvent",
                 formId: e.target.form.id,
                 eventCategory: "Button form error",
-                eventAction: e.target.form.querySelector("input[type='submit']")
-                  .value,
+                eventAction: e.target.form.querySelector("input[type='submit']").value,
                 eventType: emailValue,
                 eventLabel: window.location.pathname,
               };
