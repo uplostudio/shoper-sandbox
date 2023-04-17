@@ -64,9 +64,7 @@ try {
 // console.log(gclidInput)
 // console.log(localStorage.gclid)
 
-let inputsStepTwo = document.querySelectorAll(
-  "[app='create_trial_step2'] input:not([type='radio']):not([type='checkbox']):not([type='password']):not([type='submit'])"
-);
+let inputsStepTwo = document.querySelectorAll("[app='create_trial_step2'] input:not([type='radio']):not([type='checkbox']):not([type='password']):not([type='submit'])");
 // formAbandon
 window.addEventListener("beforeunload", () => {
   inputsStepTwo.forEach((n) => {
@@ -131,13 +129,13 @@ inputsStepTwo.forEach((n) => {
   });
 });
 
-let createTrialStepTwo = document.querySelectorAll(
-  "[app='create_trial_step2']"
-);
+let createTrialStepTwo = document.querySelectorAll("[app='create_trial_step2']");
 
 // On submit actions start here
 
 createTrialStepTwo.forEach((n) => {
+  loader = n.querySelector(".loading-in-button");
+
   n.addEventListener("submit", (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -193,8 +191,7 @@ createTrialStepTwo.forEach((n) => {
           } else {
             //            console.log(data);
             let errorInfo = n.querySelector(".w-form-fail");
-            errorInfo.children[0].innerHTML =
-              "Coś poszło nie tak. Spróbuj ponownie.";
+            errorInfo.children[0].innerHTML = "Coś poszło nie tak. Spróbuj ponownie.";
             errorInfo.style.display = "block";
             // MyTrackEvent Error (Step Two)
             if (window.dataLayer) {
