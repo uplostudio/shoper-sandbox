@@ -1,8 +1,7 @@
 let analyticsId;
 let analyticsIdInputValue = document.querySelector("[name='analitycs_id']");
 let isFromBanner = false;
-
-let loader = document.querySelector(".loading-in-button");
+let loader;
 
 var intervalId = window.setTimeout(function () {
   try {
@@ -101,6 +100,8 @@ createTrialStepOne.forEach((el) => {
   el.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
+
+    loader = el.querySelector(".loading-in-button");
 
     let form = e.target.form;
     // let emailInput = form.querySelector("[app='email']");
