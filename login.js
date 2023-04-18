@@ -1,5 +1,7 @@
 // Required Attributes: form[app='login'], input[app='host']
 
+console.log("login");
+
 $("[app='open_login_modal_button']").on("click", function () {
   $("[app='login_modal'").addClass("modal--open");
 });
@@ -23,6 +25,9 @@ try {
     e.preventDefault();
     e.stopPropagation();
 
+    formWrapper = e.target.closest("form");
+    loader = formWrapper.querySelector(".loading-in-button");
+
     checkHostBlur();
 
     let rawValue = hostInput.value;
@@ -39,6 +44,7 @@ try {
     }
 
     if (checkHostBlur()) {
+      loader.style.display = "block";
       $.ajax({
         url: "https://www.shoper.pl/ajax.php",
         headers: {},
@@ -51,13 +57,12 @@ try {
         success: function (data) {
           if (data.status === 1) {
             window.location.href = data.redirect;
+            loader.style.display = "none";
           } else {
-            formWrapper.parentElement.querySelector(
-              ".w-form-fail"
-            ).style.display = "block";
-            formWrapper.parentElement.querySelector(
-              ".w-form-fail"
-            ).textContent = "Podaj poprawny adres sklepu lub domeny roboczej";
+            loader.style.display = "none";
+
+            formWrapper.parentElement.querySelector(".w-form-fail").style.display = "block";
+            formWrapper.parentElement.querySelector(".w-form-fail").textContent = "Podaj poprawny adres sklepu lub domeny roboczej";
           }
         },
       });
