@@ -39,19 +39,17 @@ formTrigger.addEventListener("click", function (e) {
   e.preventDefault();
   e.stopPropagation();
 
+  formWrapper = e.target.closest("form");
+  loader = formWrapper.querySelector(".loading-in-button");
+
   checkFirstNameBlur();
   checkEmailBlur();
   checkPhoneBlur();
   checkTextAreaBlur();
   checkUrlBlurRegex();
 
-  if (
-    checkFirstNameBlur() &&
-    checkEmailBlur() &&
-    checkPhoneBlur() &&
-    checkTextAreaBlur() &&
-    checkUrlBlurRegex()
-  ) {
+  if (checkFirstNameBlur() && checkEmailBlur() && checkPhoneBlur() && checkTextAreaBlur() && checkUrlBlurRegex()) {
+    loader.style.display = "block";
     $.ajax({
       url: "https://www.shoper.pl/ajax.php",
       headers: {},
@@ -67,15 +65,13 @@ formTrigger.addEventListener("click", function (e) {
       },
       success: function (data) {
         if (data.status === 1) {
-          formWrapper.querySelector("form").style.display = "none";
-          formWrapper.parentElement.querySelector(
-            ".w-form-done"
-          ).style.display = "block";
-          formWrapper.querySelector("form").reset();
+          loader.style.display = "none";
+          formWrapper.parentElement.querySelector("form").style.display = "none";
+          formWrapper.parentElement.querySelector(".w-form-done").style.display = "block";
+          formWrapper.parentElement.querySelector("form").reset();
         } else {
-          formWrapper.parentElement.querySelector(
-            ".w-form-fail"
-          ).style.display = "block";
+          loader.style.display = "none";
+          formWrapper.parentElement.querySelector(".w-form-fail").style.display = "block";
         }
       },
       error: function (data) {},
