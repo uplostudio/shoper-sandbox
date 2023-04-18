@@ -1,10 +1,3 @@
-const fire = String.fromCodePoint(0x1f6a7);
-
-console.error(
-  `%c❗️${fire} Staging Version, install CORS extension. Forms don't work without extension ${fire}❗️`,
-  "color: red; font-weight: 600; font-family:monospace; background-color: transparent; font-size: 1.125rem"
-);
-
 let phoneInputValue,
   nipValue,
   emailValue,
@@ -29,13 +22,11 @@ let initialBorderColor = `1px solid #898989`;
 /* Regexes start here */
 
 function useRegexFirstName(firstNameValue) {
-  let regex =
-    /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/;
+  let regex = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/;
   return regex.test(firstNameValue);
 }
 function useRegexLastName(lastNameValue) {
-  let regex =
-    /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/;
+  let regex = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/;
   return regex.test(lastNameValue);
 }
 
@@ -50,20 +41,17 @@ function useRegexNip(nipValue) {
 }
 
 function useRegexEmail(emailValue) {
-  let regex =
-    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/;
+  let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/;
   return regex.test(emailValue);
 }
 
 function useRegexUrl(urlValue) {
-  let regex =
-    /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
+  let regex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
   return regex.test(urlValue);
 }
 
 function useRegexHost(hostValue) {
-  let regex =
-    /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
+  let regex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,15}(:[0-9]{1,5})?(\/.*)?$/;
   return regex.test(hostValue);
 }
 
@@ -134,8 +122,7 @@ function checkNipBlur() {
   } else if (!useRegexNip(nipValue)) {
     nipInput.style.border = errorBorderColor;
     errorBoxNip.style.display = "flex";
-    errorBoxNip.children[1].textContent =
-      "Podaj poprawny numer NIP składający się z 10 cyfr bez znaków specjalnych";
+    errorBoxNip.children[1].textContent = "Podaj poprawny numer NIP składający się z 10 cyfr bez znaków specjalnych";
     return false;
   } else if (useRegexNip(nipValue)) {
     nipInput.style.border = initialBorderColor;
@@ -179,8 +166,7 @@ function checkPhoneBlurTrialStepTwo(n) {
   } else if (!useRegexPhone(phoneInputValue)) {
     n.style.border = errorBorderColor;
     errorBoxPhone.style.display = "flex";
-    errorBoxPhone.children[1].textContent =
-      "Podaj poprawny numer telefonu składający się z 9 cyfr bez znaków specjalnych";
+    errorBoxPhone.children[1].textContent = "Podaj poprawny numer telefonu składający się z 9 cyfr bez znaków specjalnych";
     result = false;
     return false;
   } else if (useRegexPhone(phoneInputValue)) {
@@ -222,8 +208,7 @@ function checkPhoneBlur() {
   } else if (!useRegexPhone(phoneInputValue)) {
     phoneInput.style.border = errorBorderColor;
     errorBoxPhone.style.display = "flex";
-    errorBoxPhone.children[1].textContent =
-      "Podaj poprawny numer telefonu składający się z 9 cyfr bez znaków specjalnych";
+    errorBoxPhone.children[1].textContent = "Podaj poprawny numer telefonu składający się z 9 cyfr bez znaków specjalnych";
     return false;
   } else if (useRegexPhone(phoneInputValue)) {
     phoneInput.style.border = initialBorderColor;
@@ -251,11 +236,29 @@ function checkUrlBlur() {
     return true;
   }
 }
+function checkUrlBlurNonRequired() {
+  urlValue = urlInput.value;
+  let errorBoxUrl = urlInput.nextElementSibling;
+  if (urlValue === "") {
+    urlInput.style.border = initialBorderColor;
+    errorBoxUrl.style.display = "none";
+    // errorBoxUrl.children[1].textContent = "To pole jest wymagane";
+    return true;
+  } else if (!useRegexUrl(urlValue)) {
+    urlInput.style.border = errorBorderColor;
+    errorBoxUrl.style.display = "flex";
+    errorBoxUrl.children[1].textContent = "Podaj poprawne dane";
+    return false;
+  } else if (useRegexUrl(urlValue)) {
+    urlInput.style.border = initialBorderColor;
+    errorBoxUrl.style.display = "none";
+    return true;
+  }
+}
 
 function checkHostBlur() {
   hostValue = hostInput.value;
   let errorBoxUrl = hostInput.nextElementSibling;
-  console.log(hostValue);
   if (hostValue === "") {
     hostInput.style.border = errorBorderColor;
     errorBoxUrl.style.display = "flex";
@@ -346,8 +349,7 @@ function checkPhoneBlurTwo() {
   } else if (!useRegexPhone(phoneInputValue)) {
     this.style.border = errorBorderColor;
     errorBoxPhone.style.display = "flex";
-    errorBoxPhone.children[1].textContent =
-      "Podaj poprawny numer telefonu składający się z 9 cyfr bez znaków specjalnych";
+    errorBoxPhone.children[1].textContent = "Podaj poprawny numer telefonu składający się z 9 cyfr bez znaków specjalnych";
     outcomeTwo = false;
     return false;
   } else if (useRegexPhone(phoneInputValue)) {
@@ -366,6 +368,28 @@ function checkUrlBlurTwo() {
     errorBoxUrl.style.display = "flex";
     errorBoxUrl.children[1].textContent = "To pole jest wymagane";
     outcomeThree = false;
+    return false;
+  } else if (!useRegexUrl(urlValue)) {
+    this.style.border = errorBorderColor;
+    errorBoxUrl.style.display = "flex";
+    errorBoxUrl.children[1].textContent = "Podaj poprawne dane";
+    outcomeThree = false;
+    return false;
+  } else if (useRegexUrl(urlValue)) {
+    this.style.border = initialBorderColor;
+    errorBoxUrl.style.display = "none";
+    outcomeThree = true;
+    return true;
+  }
+}
+function checkUrlBlurTwoNonRequired() {
+  urlValue = this.value;
+  let errorBoxUrl = this.nextElementSibling;
+  if (urlValue === "") {
+    this.style.border = initialBorderColor;
+    errorBoxUrl.style.display = "none";
+    // errorBoxUrl.children[1].textContent = "To pole jest wymagane";
+    outcomeThree = true;
     return false;
   } else if (!useRegexUrl(urlValue)) {
     this.style.border = errorBorderColor;

@@ -17,7 +17,7 @@ formWrappers.forEach((n) => {
 
   emailInput.addEventListener("blur", checkMailBlurTwo);
 
-  urlInput.addEventListener("blur", checkUrlBlurTwo);
+  urlInput.addEventListener("blur", checkUrlBlurTwoNonRequired);
 
   formTrigger.addEventListener("click", function (e) {
     e.preventDefault();
@@ -25,17 +25,26 @@ formWrappers.forEach((n) => {
 
     formWrapper = e.target.closest("form");
     loader = formWrapper.querySelector(".loading-in-button");
-
     phoneInput = formWrapper.querySelector("[app='phone_campaign']");
     emailInput = formWrapper.querySelector("[app='email_campaign']");
     urlInput = formWrapper.querySelector("[app='url_campaign']");
 
-    checkUrlBlur();
+    checkUrlBlurNonRequired();
     checkPhoneBlur();
     checkEmailBlur();
 
     if (outcomeOne && outcomeTwo && outcomeThree) {
       loader.style.display = "block";
+      if (window.dataLayer) {
+        data = {
+          event: "myTrackEvent",
+          eventCategory: "Button modal form sent",
+          eventAction: e.target.value,
+          eventLabel: window.location.pathname,
+        };
+
+        dataLayer.push(data);
+      }
       $.ajax({
         url: "https://www.shoper.pl/ajax.php",
         headers: {},
@@ -45,21 +54,41 @@ formWrappers.forEach((n) => {
           email: emailValue,
           phone: phoneInputValue,
           url: urlValue,
+          thulium_id: this.closest("form").getAttribute("thulium_id"),
+          zapier: this.closest("form").getAttribute("zapier"),
         },
         success: function (data) {
-          if (data.status === 1) {
-            loader.style.display = "none";
+          // notification attribute goes in ms ads form
+          loader.style.display = "none";
+          if (data.status === 1 && formWrapper.parentElement.hasAttribute("notification")) {
+            n.parentElement.querySelector(".w-form-fail").style.background = "#4faf3f";
+            n.parentElement.querySelector(".w-form-fail").style.display = "block";
+            n.parentElement.querySelector(".w-form-fail").textContent = "Sprawdź wiadomość, którą właśnie od nas otrzymałeś!";
+            n.querySelector("form").reset();
+          } else {
             n.querySelector("form").style.display = "none";
             n.parentElement.querySelector(".w-form-done").style.display = "block";
             n.parentElement.querySelector(".w-form-done").textContent = "Sprawdź wiadomość, którą właśnie od nas otrzymałeś!";
             n.querySelector("form").reset();
-          } else {
-            n.parentElement.querySelector(".w-form-fail").style.display = "block";
-            loader.style.display = "none";
           }
+        },
+        error: function () {
+          loader.style.display = "none";
+          n.parentElement.querySelector(".w-form-fail").style.display = "block";
+          n.parentElement.querySelector(".w-form-fail").style.background = "#ff2c00";
         },
       });
     } else {
+      if (window.dataLayer) {
+        data = {
+          event: "myTrackEvent",
+          eventCategory: "Button modal form error",
+          eventAction: e.target.value,
+          eventLabel: window.location.pathname,
+        };
+
+        dataLayer.push(data);
+      }
     }
   });
 });
