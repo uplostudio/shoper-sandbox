@@ -130,7 +130,7 @@ createTrialStepTwo.forEach((n) => {
             let errorInfo = formParent.querySelector(".w-form-fail");
             errorInfo.children[0].innerHTML = "Coś poszło nie tak. Spróbuj ponownie.";
             errorInfo.style.display = "block";
-            // loader.style.display = "none";
+            loader.style.display = "none";
             // MyTrackEvent Error (Step Two)
             if (window.dataLayer) {
               data = {
