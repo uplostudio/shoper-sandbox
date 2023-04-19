@@ -7,14 +7,14 @@ let loader;
 
 // gclid
 
-regexp = /(?<gclid>(?<=gclid=).*?(?=&|\\s|$))/gm;
+regexp = /[?&]gclid=([^&]+)/gm;
 locationG = window.location.search;
 match = locationG.match(regexp);
 
 if (match !== null) {
   let splited = match[0].split("=");
-  if (splited[0] !== "") {
-    gclidValue = match[0];
+  if (splited.length > 0) {
+    gclidValue = splited[1];
     localStorage.setItem("gclid", gclidValue);
     gclidInput = document.querySelector("[name='adwords[gclid]']");
     gclidInput.setAttribute("value", gclidValue);
@@ -37,13 +37,13 @@ if (localStorage.gclid === undefined) {
 
 // fbclid
 
-regexpFb = /(?<fbclid>(?<=fbclid=).*?(?=&|\\s|$))/gm;
+regexpFb = /[?&]fbclid=([^&]+)/gm;
 locationGFb = window.location.search;
 matchFb = locationGFb.match(regexpFb);
 if (matchFb !== null) {
   let splited = matchFb[0].split("=");
-  if (splited[0] !== "") {
-    fbclidValue = matchFb[0];
+  if (splited.length > 0) {
+    fbclidValue = splited[1];
     localStorage.setItem("fbclid", fbclidValue);
     fbclidInput = document.querySelector("[name='adwords[fbclid]']");
     fbclidInput.setAttribute("value", fbclidValue);
