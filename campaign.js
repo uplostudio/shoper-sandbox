@@ -2,6 +2,8 @@ $("[app='open_consultation_modal_button']").on("click", function () {
   $("[app='campaign_modal']").addClass("modal--open");
 });
 
+outcomeThree = true;
+
 //  grab form
 formWrappers = document.querySelectorAll("[app='campaign']");
 // grab form trigger
