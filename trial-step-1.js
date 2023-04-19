@@ -4,6 +4,7 @@ let analyticsIdInputValue = document.querySelector("[name='analitycs_id']");
 let isFromBanner = false;
 let client_id;
 let loader;
+let splited;
 
 // gclid
 
@@ -12,7 +13,7 @@ locationG = window.location.search;
 match = locationG.match(regexp);
 
 if (match !== null) {
-  let splited = match[0].split("=");
+  splited = match[0].split("=");
   if (splited.length > 0) {
     gclidValue = splited[1];
     localStorage.setItem("gclid", gclidValue);
@@ -41,7 +42,7 @@ regexpFb = /[?&]fbclid=([^&]+)/gm;
 locationGFb = window.location.search;
 matchFb = locationGFb.match(regexpFb);
 if (matchFb !== null) {
-  let splited = matchFb[0].split("=");
+  splited = matchFb[0].split("=");
   if (splited.length > 0) {
     fbclidValue = splited[1];
     localStorage.setItem("fbclid", fbclidValue);
