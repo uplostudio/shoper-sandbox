@@ -34,6 +34,9 @@ formTrigger.addEventListener("click", function (e) {
   e.preventDefault();
   e.stopPropagation();
 
+  formWrapper = e.target.closest("form");
+  loader = formWrapper.querySelector(".loading-in-button");
+
   checkNipBlur();
   checkPhoneBlur();
   checkEmailBlur();
@@ -82,6 +85,7 @@ formTrigger.addEventListener("click", function (e) {
   body.append("action", formWrapper.getAttribute("action"));
 
   if (checkNipBlur() && checkPhoneBlur() && checkEmailBlur() && checkUrlBlur() && bruttoTerms.checked && bruttoClause.checked && shoperPersonalData.checked) {
+    loader.style.display = "block";
     fetch(`https://www.shoper.pl/ajax.php`, {
       body,
       headers: {
@@ -89,6 +93,7 @@ formTrigger.addEventListener("click", function (e) {
       },
       method: "POST",
     }).then(function (response) {
+      loader.style.display = "none";
       formWrapper.querySelector("form").style.display = "none";
       formWrapper.querySelector(".w-form-done").style.display = "block";
     });

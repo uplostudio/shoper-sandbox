@@ -1,13 +1,16 @@
 // Required Attributes: form[app='login'], input[app='host']
 
-console.log("login");
-
 $("[app='open_login_modal_button']").on("click", function () {
   $("[app='login_modal'").addClass("modal--open");
 });
 try {
   //  grab form
   formWrapper = document.querySelector("[app='login']");
+
+  formWrapper.addEventListener("click", (e) => {
+    e.preventDefault();
+  });
+
   // grab form trigger
   formTrigger = formWrapper.querySelector("[app='login_submit']");
   // grab all input fields from form without checkboxes
@@ -26,6 +29,7 @@ try {
     e.stopPropagation();
 
     formWrapper = e.target.closest("form");
+
     loader = formWrapper.querySelector(".loading-in-button");
 
     checkHostBlur();
@@ -57,10 +61,8 @@ try {
         success: function (data) {
           if (data.status === 1) {
             window.location.href = data.redirect;
-            loader.style.display = "none";
           } else {
             loader.style.display = "none";
-
             formWrapper.parentElement.querySelector(".w-form-fail").style.display = "block";
             formWrapper.parentElement.querySelector(".w-form-fail").textContent = "Podaj poprawny adres sklepu lub domeny roboczej";
           }

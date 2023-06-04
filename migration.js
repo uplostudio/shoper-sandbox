@@ -23,6 +23,7 @@ window.addEventListener("load", () => {
 
       formWrapper = e.target.closest("form");
       loader = formWrapper.querySelector(".loading-in-button");
+      formWrapper = this.form;
       phoneInput = formWrapper.querySelector("[app='phone_campaign']");
       emailInput = formWrapper.querySelector("[app='email_campaign']");
 
@@ -30,6 +31,16 @@ window.addEventListener("load", () => {
       checkEmailBlur();
 
       if (outcomeOne && outcomeTwo) {
+        if (window.dataLayer) {
+          data = {
+            event: "myTrackEvent",
+            eventCategory: "Button modal form sent",
+            eventAction: formTrigger.value,
+            eventLabel: window.location.pathname,
+          };
+
+          dataLayer.push(data);
+        }
         loader.style.display = "block";
         $.ajax({
           url: "https://www.shoper.pl/ajax.php",
@@ -54,6 +65,16 @@ window.addEventListener("load", () => {
           },
         });
       } else {
+        if (window.dataLayer) {
+          data = {
+            event: "myTrackEvent",
+            eventCategory: "Button modal form error",
+            eventAction: formTrigger.value,
+            eventLabel: window.location.pathname,
+          };
+
+          dataLayer.push(data);
+        }
       }
     });
   });
