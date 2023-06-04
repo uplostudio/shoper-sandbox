@@ -171,4 +171,3 @@ function trackFormSubmit(formSelector, successParams, errorParams) {
   });
 }
 
-trackFormSubmit("[data-app='consult']", { event: "event1-onsuccess", eventCategory: "category1" }, { event: "event2-onerror", eventCategory: "category2" });
