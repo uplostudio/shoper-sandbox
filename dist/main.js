@@ -154,6 +154,8 @@ $("[data-app^='open_']").on("click", function () {
   console.log(triggerName);
 });
 
+console.log("dataLayer");
+
 function trackFormSubmit(formSelector, successParams, errorParams) {
   $(document).ajaxComplete(function (xhr) {
     const form = $(formSelector)[0];
@@ -171,3 +173,4 @@ function trackFormSubmit(formSelector, successParams, errorParams) {
   });
 }
 
+trackFormSubmit("[data-app='consult']", { event: "event1-onsuccess", eventCategory: "category1" }, { event: "event2-onerror", eventCategory: "category2" });
