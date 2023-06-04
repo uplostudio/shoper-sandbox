@@ -154,7 +154,6 @@ $("[data-app^='open_']").on("click", function () {
   console.log(triggerName);
 });
 
-
 function trackFormSubmit(formSelector, successParams, errorParams) {
   $(document).ajaxComplete(function (xhr) {
     const form = $(formSelector)[0];
