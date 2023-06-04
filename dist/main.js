@@ -1,6 +1,3 @@
-let error;
-
-// validation patterns
 
 const validationPatterns = [
   {
@@ -25,11 +22,11 @@ const validationPatterns = [
   },
 ];
 
-// attributes we don't need when AJAX
-
 const omittedAtributes = ["method", "name", "id", "class", "aria-label", "fs-formsubmit-element"];
 
 const url = "https://www.shoper.pl/ajax.php";
+
+let error;
 
 function createEnterKeydownHandler(inputElement, submitTriggerElement) {
   return function (e) {
@@ -41,7 +38,6 @@ function createEnterKeydownHandler(inputElement, submitTriggerElement) {
   };
 }
 
-// run valication for each input
 
 function validateInput(input) {
   const name = input.getAttribute("data-form");
@@ -79,9 +75,6 @@ function handleBlur(event) {
   validateInput(event.target);
 }
 
-// enter event added to each input
-// try to send form (click submit button)
-// when pushing enter
 
 document.querySelectorAll("input").forEach((input) => {
   const submitButton = input.closest("form").querySelector("[data-form='submit']");
@@ -104,8 +97,6 @@ function validateForm(formElement) {
   return errors;
 }
 
-// get all Inputs, all attrbiutes from form
-// create an AJAX request
 
 function sendFormDataToURL(url, formElement, form) {
   const formData = new FormData();
@@ -143,7 +134,6 @@ function sendFormDataToURL(url, formElement, form) {
   });
 }
 
-// send data, if no errros
 function handleSubmitClick(e) {
   e.preventDefault();
   const form = this;
@@ -154,10 +144,8 @@ function handleSubmitClick(e) {
   }
 }
 
-// send data trigger
 $("[data-form='submit']").click(handleSubmitClick);
 
-// open modal with universal button
 $("[data-app^='open_']").on("click", function () {
   const triggerName = $(this)
     .data("app")
@@ -166,7 +154,6 @@ $("[data-app^='open_']").on("click", function () {
   console.log(triggerName);
 });
 
-// DataLayer
 
 function trackFormSubmit(formSelector, successParams, errorParams) {
   $(document).ajaxComplete(function (xhr) {
@@ -180,7 +167,6 @@ function trackFormSubmit(formSelector, successParams, errorParams) {
     } else {
       Object.assign(eventData, errorParams, { eventAction: "submitError" });
     }
-    // Push the eventData object to the dataLayer
     window.dataLayer.push(eventData);
     console.log(window.dataLayer);
   });
