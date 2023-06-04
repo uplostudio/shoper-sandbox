@@ -26,8 +26,6 @@ if (fbclidInput) {
   fbclidInput.setAttribute("value", fbclidValue);
 }
 
-console.log(fbclidValue, gclidValue);
-
 const intervalId = window.setTimeout(function () {
   try {
     const tracker = ga.getAll()[0];
