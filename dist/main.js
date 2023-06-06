@@ -26,8 +26,6 @@ const omittedAtributes = ["method", "name", "id", "class", "aria-label", "fs-for
 
 const url = "https://www.shoper.pl/ajax.php";
 
-let error;
-
 function createEnterKeydownHandler(inputElement, submitTriggerElement) {
   return function (e) {
     if (e.key === "Enter") {
@@ -66,8 +64,6 @@ function validateInput(input) {
     $(input).toggleClass("error", error !== null);
   }
 
-  console.log(error);
-
   return error;
 }
 
@@ -98,7 +94,7 @@ function validateForm(formElement) {
 }
 
 
-function sendFormDataToURL(url, formElement, form) {
+function sendFormDataToURL(urlN, formElement, form) {
   const formData = new FormData();
 
   const attributes = formElement.attributes;
@@ -109,18 +105,36 @@ function sendFormDataToURL(url, formElement, form) {
       formData.append(attributeName, attributeValue);
     }
   }
+
   const inputElements = formElement.querySelectorAll("input, textarea");
+  let countryValues = [];
+  let marketplaceValues = [];
   inputElements.forEach((inputElement) => {
-    const inputValue = inputElement.value;
+    let inputValue = inputElement.value;
     const inputName = inputElement.getAttribute("data-form");
-    if (inputValue !== "") {
+    if (inputElement.type === "checkbox") {
+      inputValue = inputElement.nextElementSibling.textContent.replace(/[^\u0000-\u007F\u0100-\u017F]+/g, "").trim();
+      if (inputName === "country" && inputElement.checked) {
+        countryValues.push(inputValue);
+      } else if (inputName === "marketplace" && inputElement.checked) {
+        marketplaceValues.push(inputValue);
+      }
+    } else if (inputValue !== "") {
       formData.append(inputName, inputValue);
     }
   });
 
+  if (countryValues.length > 0) {
+    formData.append("country", countryValues);
+  }
+
+  if (marketplaceValues.length > 0) {
+    formData.append("marketplace", marketplaceValues);
+  }
+
   $.ajax({
     type: "POST",
-    url: url,
+    url: urlN,
     data: formData,
     processData: false,
     contentType: false,
@@ -138,9 +152,8 @@ function handleSubmitClick(e) {
   e.preventDefault();
   const form = this;
   const formElement = this.closest("form");
-
   if (validateForm(formElement) === 0) {
-    sendFormDataToURL(url, formElement, form);
+    sendFormDataToURL(urlN, formElement, form);
   }
 }
 
@@ -151,7 +164,7 @@ $("[data-app^='open_']").on("click", function () {
     .data("app")
     .replace(/^open_|_modal_button$/g, "");
   $(`[data-app='${triggerName}']`).addClass("modal--open");
-  console.log(triggerName);
+  $(document.body).toggleClass("overflow-hidden", true);
 });
 
 console.log("dataLayer");
