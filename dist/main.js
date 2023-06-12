@@ -167,7 +167,6 @@ $("[data-app^='open_']").on("click", function () {
   $(document.body).toggleClass("overflow-hidden", true);
 });
 
-console.log("dataLayer");
 
 function trackFormSubmit(formSelector, successParams, errorParams) {
   $(document).ajaxComplete(function (xhr) {
