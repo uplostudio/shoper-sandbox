@@ -171,7 +171,6 @@ $("[data-app^='open_']").on("click", function () {
 function trackFormSubmit(formSelector, successParams, errorParams) {
   $(document).ajaxComplete(function (xhr) {
     const form = $(formSelector)[0];
-    console.log(form, xhr.status);
     const eventData = {
       eventLabel: window.location.href,
       eventType: form.getAttribute("data-app"),
