@@ -177,8 +177,7 @@ createTrialStepOne.forEach((el) => {
     if (result) {
       loader.style.display = "block";
       $.ajax({
-        // url: "https://www.shoper.pl/ajax.php",
-        url: "https://webmad.pl/test.php",
+        url: "https://www.shoper.pl/ajax.php",
         headers: {},
         method: "POST",
         data: {
