@@ -22,9 +22,9 @@ const validationPatterns = [
   },
 ];
 
-const omittedAtributes = ["method", "name", "id", "class", "aria-label", "fs-formsubmit-element"];
+const omittedAtributes = ["method", "name", "id", "class", "aria-label", "fs-formsubmit-element", "wf-page-id", "wf-element-id"];
 
-const url = "https://www.shoper.pl/ajax.php";
+const urlN = "https://www.shoper.pl/ajax.php";
 
 function createEnterKeydownHandler(inputElement, submitTriggerElement) {
   return function (e) {
