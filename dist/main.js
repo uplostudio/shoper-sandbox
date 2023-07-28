@@ -94,7 +94,7 @@ function validateForm(formElement) {
 }
 
 
-function sendFormDataToURL(urlN, formElement, form) {
+function sendFormDataToURL(urlN, formElement, form, loader) {
   const formData = new FormData();
 
   const attributes = formElement.attributes;
@@ -138,12 +138,27 @@ function sendFormDataToURL(urlN, formElement, form) {
     data: formData,
     processData: false,
     contentType: false,
-    success: function () {
+    success: function (data) {
+      loader.show();
+      if (formData.has("host")) {
+        if (data.status === 1) {
+          $(formElement).siblings(".error-message").hide();
+          loader.hide();
+          window.location.href = data.redirect;
+          return;
+        } else {
+          loader.hide();
+          $(formElement).siblings(".error-message").show();
+          return;
+        }
+      }
+      successResponse(formElement);
       $(form).parent().hide();
       $(form).parent().next().show();
     },
     error: function () {
-      $(form).siblings(".error-message").show();
+      errorResponse(formElement);
+      $(formElement).siblings(".error-message").show();
     },
   });
 }
@@ -152,37 +167,53 @@ function handleSubmitClick(e) {
   e.preventDefault();
   const form = this;
   const formElement = this.closest("form");
+  const loader = $(this).find(".loading-in-button");
   if (validateForm(formElement) === 0) {
-    sendFormDataToURL(urlN, formElement, form);
+    sendFormDataToURL(urlN, formElement, form, loader);
   }
 }
 
 $("[data-form='submit']").click(handleSubmitClick);
 
 $("[data-app^='open_']").on("click", function () {
-  const triggerName = $(this)
-    .data("app")
-    .replace(/^open_|_modal_button$/g, "");
+  originalTrigger = $(this);
+  const triggerName = originalTrigger.data("app").replace(/^open_|_modal_button$/g, "");
   $(`[data-app='${triggerName}']`).addClass("modal--open");
   $(document.body).toggleClass("overflow-hidden", true);
 });
 
 
-function trackFormSubmit(formSelector, successParams, errorParams) {
-  $(document).ajaxComplete(function (xhr) {
-    const form = $(formSelector)[0];
-    const eventData = {
-      eventLabel: window.location.href,
-      eventType: form.getAttribute("data-app"),
-    };
-    if (xhr.status === 200) {
-      Object.assign(eventData, successParams, { eventAction: "submitSuccess" });
-    } else {
-      Object.assign(eventData, errorParams, { eventAction: "submitError" });
-    }
-    window.dataLayer.push(eventData);
-    console.log(window.dataLayer);
-  });
+$("[fs-formsubmit-element='reset']").on("click", function () {
+  $(".loading-in-button").hide();
+});
+
+function pushDataToDataLayer(formElement, eventCategory) {
+  if (formElement.getAttribute("data-layer") !== "true") {
+    return;
+  }
+
+  const data = {
+    event: "myTrackEvent",
+    eventCategory: eventCategory,
+    eventAction: $(formElement).find("#label").text(),
+    eventLabel: window.location.pathname,
+  };
+
+  const leadOfferText = $(originalTrigger).attr("data-lead_offer");
+
+  if (leadOfferText) {
+    data.lead_offer = leadOfferText;
+  }
+
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push(data);
+  console.log(window.dataLayer);
 }
 
-trackFormSubmit("[data-app='consult']", { event: "event1-onsuccess", eventCategory: "category1" }, { event: "event2-onerror", eventCategory: "category2" });
+function successResponse(formElement) {
+  pushDataToDataLayer(formElement, "Button modal form sent");
+}
+
+function errorResponse(formElement) {
+  pushDataToDataLayer(formElement, "Button modal form error");
+}
