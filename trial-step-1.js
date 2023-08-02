@@ -9,6 +9,8 @@ let splited;
 let inputVals;
 let inputValsArr = [];
 let inputValsArrFiltered;
+let elementId;
+let result;
 
 try {
   // the green banner from home
@@ -100,8 +102,6 @@ let trialStepOneModal = document.querySelector("[app='create_trial_step1_modal']
 
 // beforeunload
 // formAbandon
-let elementId;
-let result;
 
 window.addEventListener("beforeunload", () => {
   trialStepOneEmailInputs.forEach((n) => {
