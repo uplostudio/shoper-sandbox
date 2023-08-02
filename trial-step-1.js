@@ -6,6 +6,10 @@ let formLocation = "";
 let client_id;
 let loader;
 let splited;
+let inputVals;
+let inputValsArr = [];
+let inputValsArrFiltered;
+
 try {
   // the green banner from home
   const greenBanner = document.querySelector("[data-ga='true']");
@@ -96,9 +100,6 @@ let trialStepOneModal = document.querySelector("[app='create_trial_step1_modal']
 
 // beforeunload
 // formAbandon
-let inputVals;
-let inputValsArr = [];
-let inputValsArrFiltered;
 let elementId;
 let result;
 
