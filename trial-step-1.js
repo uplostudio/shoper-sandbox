@@ -9,7 +9,7 @@ let client_id;
 let loader;
 let elementId;
 let result;
-let analyticsId;
+let analyticsId = "";
 
 let inputVals;
 let inputValsArr = [];
