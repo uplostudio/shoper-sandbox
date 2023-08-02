@@ -7,9 +7,12 @@ const trialOpenButton = document.querySelectorAll("[app='open_trial_modal_button
 const trialStepOneModal = document.querySelector("[app='create_trial_step1_modal']");
 let client_id;
 let loader;
-let inputValsArrFiltered;
 let elementId;
 let result;
+
+let inputVals;
+let inputValsArr = [];
+let inputValsArrFiltered;
 
 // gclid
 const urlSearchParams = new URLSearchParams(window.location.search);
