@@ -9,6 +9,7 @@ let client_id;
 let loader;
 let elementId;
 let result;
+let analyticsId;
 
 let inputVals;
 let inputValsArr = [];
@@ -20,6 +21,7 @@ let gclidValue = urlSearchParams.get("gclid") ?? "";
 
 if (gclidInput) {
   gclidInput.setAttribute("value", gclidValue);
+} else {
 }
 
 // fbclid
@@ -27,12 +29,13 @@ let fbclidValue = urlSearchParams.get("fbclid") ?? "";
 
 if (fbclidInput) {
   fbclidInput.setAttribute("value", fbclidValue);
+} else {
 }
 
 const intervalId = window.setTimeout(function () {
   try {
     const tracker = ga.getAll()[0];
-    const analyticsId = tracker.get("clientId");
+    analyticsId = tracker.get("clientId");
     analyticsIdInputValue.value = analyticsId;
   } catch (err) {}
 }, 2000);
